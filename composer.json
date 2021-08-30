@@ -1,8 +1,8 @@
 {
-  "name": "vendor_name/core",
-  "description": "description",
+  "name": "group-life/core",
+  "description": "this project simplifies the work with schedules and subscriptions for small schools and sections",
   "minimum-stability": "stable",
-  "license": "proprietary",
+  "license": "MIT",
   "authors": [
     {
       "name": "Lehersun",
@@ -13,7 +13,6 @@
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {
-    "classmap": ["src/classes/"]
-
+    "psr-4": {"Core\\":"src/"}
   }
 }
