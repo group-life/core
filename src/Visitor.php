@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Classes;
+namespace Core;
 class Visitor
 {
     private $name;

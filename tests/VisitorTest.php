@@ -1,6 +1,6 @@
 <?php
 use PHPUnit\Framework\TestCase;
-use Core\Classes\Visitor;
+use Core\Visitor;
 
 class VisitorTest extends TestCase
 {
