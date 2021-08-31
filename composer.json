@@ -17,10 +17,12 @@
     "psr-4": {"GroupLife\\Core\\":"src/"}
   },
   "scripts": {
+    "test": ["phpunit", "@composer style"],
     "style": "phpcs --standard=PSR12 src/ tests/",
     "style-fix": "phpcbf --standard=PSR12 src/ tests/"
   },
   "scripts-descriptions": {
+    "test": "Execute all tests",
     "style": "Run the code style checker",
     "style-fix": "Fix the code style"
   }
