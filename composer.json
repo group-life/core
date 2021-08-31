@@ -22,7 +22,7 @@
     "style-fix": "phpcbf --standard=PSR12 src/ tests/"
   },
   "scripts-descriptions": {
-    "test": "Execute all tests",
+    "test": "Run the all tests",
     "style": "Run the code style checker",
     "style-fix": "Fix the code style"
   }
