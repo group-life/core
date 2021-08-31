@@ -13,6 +13,6 @@
     "phpunit/phpunit": "^9.5"
   },
   "autoload": {
-    "psr-4": {"Core\\":"src/"}
+    "psr-4": {"GroupLife\\Core\\":"src/"}
   }
 }
