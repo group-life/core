@@ -1,6 +1,6 @@
 <?php
 
-namespace Core;
+namespace GroupLife\Core;
 class Visitor
 {
     private $name;
