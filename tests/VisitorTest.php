@@ -1,4 +1,7 @@
 <?php
+
+namespace GroupLife\Core\tests;
+
 use PHPUnit\Framework\TestCase;
 use GroupLife\Core\Visitor;
 
