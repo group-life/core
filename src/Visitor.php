@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace GroupLife\Core;
 
@@ -14,10 +14,8 @@ class Visitor
         $this->name = $name;
         $this->surname = $surname;
     }
-  
-    public function getFullName () : string
+    public function getFullName(): string
     {
         return $this->name . ' ' . $this->surname;
     }
 }
-
