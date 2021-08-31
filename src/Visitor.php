@@ -1,6 +1,7 @@
 <?php
 
 namespace Core;
+
 class Visitor
 {
     private $name;
@@ -11,7 +12,8 @@ class Visitor
         $this->name = $name;
         $this->surname = $surname;
     }
-    public function returnFullName ()
+
+    public function returnFullName()
     {
         return 'My name is ' . $this->name . ' ' . $this->surname;
     }
