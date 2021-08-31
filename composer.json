@@ -15,5 +15,13 @@
   },
   "autoload": {
     "psr-4": {"Core\\":"src/"}
+  },
+  "scripts": {
+    "style": "phpcs --standard=PSR12 src/ tests/",
+    "style-fix": "phpcbf --standard=PSR12 src/ tests/"
+  },
+  "scripts-descriptions": {
+    "style": "Run the code style checker",
+    "style-fix": "Fix the code style"
   }
 }
