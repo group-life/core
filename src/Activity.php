@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace GroupLife\Core;
 
 class Activity
@@ -8,7 +10,7 @@ class Activity
 
     public function __construct(string $name)
     {
-    $this->name = $name;
+        $this->name = $name;
     }
 
     public function getName() : string

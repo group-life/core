@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace GroupLife\Core;
 
 class Visitor
@@ -17,3 +19,4 @@ class Visitor
         return $this->name . ' ' . $this->surname;
     }
 }
+
