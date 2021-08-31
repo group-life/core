@@ -1,18 +1,19 @@
 <?php
 
 namespace GroupLife\Core;
+
 class Visitor
 {
     private $name;
     private $surname;
 
-    public function __construct($name, $surname)
+    public function __construct(string $name, string $surname)
     {
         $this->name = $name;
         $this->surname = $surname;
     }
-    public function returnFullName ()
+    public function getFullName () : string
     {
-        return 'My name is ' . $this->name . ' ' . $this->surname;
+        return $this->name . ' ' . $this->surname;
     }
 }
