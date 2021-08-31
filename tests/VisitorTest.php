@@ -3,7 +3,7 @@
 namespace GroupLife\Core\tests;
 
 use PHPUnit\Framework\TestCase;
-use Core\Visitor;
+use GroupLife\Core\Visitor;
 
 class VisitorTest extends TestCase
 {
