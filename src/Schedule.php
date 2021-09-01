@@ -1,26 +1,43 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GroupLife\Core;
+
+use GroupLife\Core\Schedule\Weekday;
 
 class Schedule
 {
-    public static $schedule = [];
-    private $from;
-    private $to;
-    private $repeat;
+    private array $schedule;
+    private string $weekday;
+    private string $startTime;
+    private \DateInterval $period;
+    private \DateInterval $duration;
 
-    public function __construct(\DateTime $from, \DateTime $to, string $repeat = 'every day at 8')
+    public function __construct($rules)
     {
-        $this->from = $from;
-        $this->to = $to;
-        $this->repeat = $repeat;
-        self::materialize($this->from, $this->to);
+        $this->weekday = $rules->getWeekday();
+        $this->startTime = $rules->getStartTime();
+        $this->period = $rules->getPeriod();
+        $this->duration = $rules->getDuration();
     }
-    public static function materialize(\DateTime $from, \DateTime $to)
+
+    /**
+     * @return \DateInterval
+     */
+
+    public function materialize(\DateTime $from, \DateTime $to)
     {
-        if ($from < $to) {
-            array_push(self::$shedule, $from);
-            self::materialize($from->add(new \DateInterval('P1D')), $to);
+        if ($from->format('l') != $this->weekday) {
+            $from->modify('next ' . $this->weekday);
         }
+        $from->modify($this->startTime);
+
+        while ($from <= $to) {
+            $this->schedule[] = $from->format('Y-m-d H:i:s');
+            $from->add($this->period);
+        }
+
+        return $this->schedule;
     }
 }
