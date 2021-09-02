@@ -4,18 +4,16 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Schedule;
 
-class Weekday
+class Weekday implements RuleInterface
 {
-    private \DateInterval $period;
     private string $weekday;
     private string $startTime;
-    private \DateInterval $duration;
+    private \DateInterval $period;
 
-    public function __construct(string $weekday, string $startTime, \DateInterval $duration)
+    public function __construct(string $weekday, string $startTime)
     {
         $this->weekday = $weekday;
         $this->startTime = $startTime;
-        $this->duration = $duration;
         $this->period = new \DateInterval('P1W');
     }
 
@@ -40,13 +38,5 @@ class Weekday
     public function getStartTime(): string
     {
         return $this->startTime;
-    }
-
-    /**
-     * @return \DateInterval
-     */
-    public function getDuration(): \DateInterval
-    {
-        return $this->duration;
     }
 }

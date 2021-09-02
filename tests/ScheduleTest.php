@@ -11,14 +11,13 @@ class ScheduleTest extends TestCase
 {
     public function testMaterialize()
     {
-        $this->markTestIncomplete('TODO');
+//        $this->markTestIncomplete('TODO');
 
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
         $schedule = new Schedule([
-            // TODO: Tuesdays 10:00
+            new Schedule\Weekday('Tuesday', '10:00')
         ]);
-
         $this->assertEquals(
             [
                 new \DateTime('2021-01-05 10:00'),
