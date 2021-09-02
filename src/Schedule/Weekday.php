@@ -6,9 +6,9 @@ namespace GroupLife\Core\Schedule;
 
 class Weekday implements RuleInterface
 {
-    private string $weekday;
-    private string $startTime;
-    private \DateInterval $period;
+    private $weekday;
+    private $startTime;
+    private $period;
 
     public function __construct(string $weekday, string $startTime)
     {

@@ -10,7 +10,7 @@ class Schedule
     /**
      * @var array
      */
-    private array $rules;
+    private $rules;
 
     /**
      * Schedule constructor.
