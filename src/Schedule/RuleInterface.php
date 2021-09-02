@@ -4,9 +4,7 @@ namespace GroupLife\Core\Schedule;
 
 interface RuleInterface
 {
-    public function getPeriod();
+    public function includedDays(\DateTime $from, \DateInterval $period): array;
 
-    public function getWeekday();
-
-    public function getStartTime();
+    public function excludedDays(\DateTime $from, \DateInterval $period): array;
 }

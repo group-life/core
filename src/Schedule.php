@@ -29,19 +29,6 @@ class Schedule
      */
     public function materialize(\DateTime $from, \DateInterval $period): array
     {
-        $to = \DateTime::createFromFormat('Y-m-d H:i', $from->format('Y-m-d H:i'));
-        $to->add($period);
-        $schedule = [];
-        if ($from->format('l') != $this->rules[0]->getWeekday()) {
-            $from->modify('next ' . $this->rules[0]->getWeekday());
-        }
-        $from->modify($this->rules[0]->getStartTime());
-
-        while ($from <= $to) {
-            $schedule[] = new \DateTime($from->format('Y-m-d H:i'));
-            $from->add($this->rules[0]->getPeriod());
-        }
-
-        return $schedule;
+        return $this->rules[0]->includedDays($from, $period);
     }
 }

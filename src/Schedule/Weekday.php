@@ -8,35 +8,32 @@ class Weekday implements RuleInterface
 {
     private $weekday;
     private $startTime;
-    private $period;
+    private $repeat;
 
     public function __construct(string $weekday, string $startTime)
     {
         $this->weekday = $weekday;
         $this->startTime = $startTime;
-        $this->period = new \DateInterval('P1W');
+        $this->repeat = new \DateInterval('P1W');
     }
 
-    /**
-     * @return \DateInterval
-     */
-    public function getPeriod(): \DateInterval
+    public function includedDays(\DateTime $from, \DateInterval $period): array
     {
-        return $this->period;
-    }
-    /**
-     * @return string
-     */
-    public function getWeekday(): string
-    {
-        return $this->weekday;
-    }
+        $to = (clone $from)->add($period);
+        $schedule = [];
+        if ($from->format('l') != $this->weekday) {
+            $from->modify('next ' . $this->weekday);
+        }
+        $from->modify($this->startTime);
 
-    /**
-     * @return string
-     */
-    public function getStartTime(): string
+        while ($from <= $to) {
+            $schedule[] = new \DateTime($from->format('Y-m-d H:i'));
+            $from->add($this->repeat);
+        }
+        return $schedule;
+    }
+    public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
-        return $this->startTime;
+        return [];
     }
 }
