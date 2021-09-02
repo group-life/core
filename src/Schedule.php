@@ -4,40 +4,32 @@ declare(strict_types=1);
 
 namespace GroupLife\Core;
 
-use GroupLife\Core\Schedule\Weekday;
-
 class Schedule
 {
-    private array $schedule;
-    private string $weekday;
-    private string $startTime;
-    private \DateInterval $period;
-    private \DateInterval $duration;
 
-    public function __construct($rules)
+    /**
+     * @var array
+     */
+    private $rules;
+
+    /**
+     * Schedule constructor.
+     * @param Schedule\RuleInterface[] $rules
+     */
+    public function __construct(array $rules)
     {
-        $this->weekday = $rules->getWeekday();
-        $this->startTime = $rules->getStartTime();
-        $this->period = $rules->getPeriod();
-        $this->duration = $rules->getDuration();
+        $this->rules = $rules;
     }
 
     /**
-     * @return \DateInterval
+     * @param \DateTime $from
+     * @param \DateInterval $period
+     *
+     * @return \DateTime[]
      */
-
-    public function materialize(\DateTime $from, \DateTime $to)
+    public function materialize(\DateTime $from, \DateInterval $period): array
     {
-        if ($from->format('l') != $this->weekday) {
-            $from->modify('next ' . $this->weekday);
-        }
-        $from->modify($this->startTime);
-
-        while ($from <= $to) {
-            $this->schedule[] = $from->format('Y-m-d H:i:s');
-            $from->add($this->period);
-        }
-
-        return $this->schedule;
+        // TODO
+        return [];
     }
 }

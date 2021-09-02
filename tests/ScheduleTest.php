@@ -9,17 +9,24 @@ use GroupLife\Core\Schedule;
 
 class ScheduleTest extends TestCase
 {
-
     public function testMaterialize()
     {
-        $dateFrom = new \DateTime('08:00 next Sunday', new \DateTimeZone('+0300'));
-        $oneMonth = new \DateTime('08:00 + 1 month', new \DateTimeZone('+0300'));
-        $dateInt   = new \DateInterval('PT1H');
-        $schedule = new Schedule(
-            new Schedule\Weekday('Tuesday', '10:00', new \DateInterval('PT1H')),
-        );
-        $dates = $schedule->materialize($dateFrom, $oneMonth);
+        $this->markTestIncomplete('TODO');
 
-        $this->assertIsArray($dates = $schedule->materialize($dateFrom, $oneMonth));
+        $dateFrom = new \DateTime('2021-01-01');
+        $oneMonth = new \DateInterval('P1M');
+        $schedule = new Schedule([
+            // TODO: Tuesdays 10:00
+        ]);
+
+        $this->assertEquals(
+            [
+                new \DateTime('2021-01-05 10:00'),
+                new \DateTime('2021-01-12 10:00'),
+                new \DateTime('2021-01-19 10:00'),
+                new \DateTime('2021-01-26 10:00'),
+            ],
+            $schedule->materialize($dateFrom, $oneMonth)
+        );
     }
 }
