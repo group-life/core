@@ -27,7 +27,7 @@ class Weekday implements RuleInterface
         $from->modify($this->startTime);
 
         while ($from <= $to) {
-            $schedule[] = new \DateTime($from->format('Y-m-d H:i'));
+            $schedule[] = clone $from;
             $from->add($this->repeat);
         }
         return $schedule;
