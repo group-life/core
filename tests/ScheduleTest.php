@@ -9,12 +9,12 @@ use GroupLife\Core\Schedule;
 
 class ScheduleTest extends TestCase
 {
-    public function testMaterializeWeekday()
+    public function testMaterializeWeekdayRule()
     {
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
         $schedule = new Schedule([
-            new Schedule\Weekday('Tuesday', '10:00')
+            new Schedule\WeekdayRule('Tuesday', '10:00')
         ]);
         $this->assertEquals(
             [
@@ -27,12 +27,12 @@ class ScheduleTest extends TestCase
         );
     }
 
-    public function testMaterializeDay()
+    public function testMaterializeDayRule()
     {
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
         $scheduleDays = new Schedule([
-            new Schedule\Day(['2021-01-01' => '10:00', '2021-01-02' => '09:00'])
+            new Schedule\DayRule(['2021-01-01' => '10:00', '2021-01-02' => '09:00'])
         ]);
         $this->assertEquals(
             [

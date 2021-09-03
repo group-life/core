@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Schedule;
 
-class Weekday implements RuleInterface
+class WeekdayRule implements RuleInterface
 {
     private $weekday;
     private $startTime;

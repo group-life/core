@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Schedule;
 
-class Day implements RuleInterface
+class DayRule implements RuleInterface
 {
 
     private $days;
