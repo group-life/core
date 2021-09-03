@@ -11,7 +11,7 @@ class Schedule
      * @var array
      */
     private $rules;
-
+    private $schedule = [];
     /**
      * Schedule constructor.
      * @param Schedule\RuleInterface[] $rules
@@ -29,6 +29,12 @@ class Schedule
      */
     public function materialize(\DateTime $from, \DateInterval $period): array
     {
-        return $this->rules[0]->includedDays($from, $period);
+        foreach ($this->rules as $rule) {
+            $this->schedule = $rule->includedDays($from, $period, $this->schedule);
+        }
+        foreach ($this->rules as $rule) {
+            $this->schedule = $rule->excludedDays($from, $period, $this->schedule);
+        }
+            return $this->schedule;
     }
 }
