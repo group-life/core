@@ -37,4 +37,12 @@ class Schedule
         }
             return $this->schedule;
     }
+
+    /**
+     * @param array $rules
+     */
+    public function setRules(array $rules): void
+    {
+        $this->rules = $rules;
+    }
 }

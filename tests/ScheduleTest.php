@@ -42,4 +42,25 @@ class ScheduleTest extends TestCase
             $scheduleDays->materialize($dateFrom, $oneMonth)
         );
     }
+
+    public function testMaterializeCancelDayRule()
+    {
+        $dateFrom = new \DateTime('2021-01-01');
+        $oneMonth = new \DateInterval('P1M');
+        $scheduleDays = new Schedule([
+            new Schedule\DayRule(['2021-01-01' => '10:00', '2021-01-02' => '09:00'])
+        ]);
+        $scheduleDays->materialize($dateFrom, $oneMonth);
+
+        $dateCancelFrom = new \DateTime('2021-01-01');
+        $scheduleDays->setRules([
+            new Schedule\CancelDayRule(['2021-01-01' => '10:00'])
+        ]);
+        $this->assertEquals(
+            [
+                new \DateTime('2021-01-02 09:00'),
+            ],
+            $scheduleDays->materialize($dateCancelFrom, $oneMonth)
+        );
+    }
 }
