@@ -17,9 +17,9 @@ class WeekdayRule implements RuleInterface
         $this->repeat = new \DateInterval('P1W');
     }
 
-    public function includedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function includedDays(\DateTime $from, \DateInterval $period): array
     {
-
+        $schedule = [];
         $to = (clone $from)->add($period);
         if ($from->format('l') != $this->weekday) {
             $from->modify('next ' . $this->weekday);
@@ -32,8 +32,8 @@ class WeekdayRule implements RuleInterface
         }
         return $schedule;
     }
-    public function excludedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
-        return $schedule;
+        return [];
     }
 }
