@@ -28,21 +28,21 @@ class Schedule
      */
     public function materialize(\DateTime $from, \DateInterval $period): array
     {
-        $schedule = [];
+        $include = [];
+        $exclude = [];
         foreach ($this->rules as $rule) {
-            $schedule = $rule->includedDays($from, $period);
+            $include = array_merge($include, $rule->includedDays($from, $period));
         }
         foreach ($this->rules as $rule) {
-            $schedule = array_diff($schedule, $rule->excludedDays($from, $period));
+            $exclude = array_merge($rule->excludedDays($from, $period));
         }
-        return $schedule;
-    }
-
-    /**
-     * @param array $rules
-     */
-    public function setRules(array $rules): void
-    {
-        $this->rules = $rules;
+        if (!empty($exclude)) {
+            return array_filter($include, function ($includedDay) use ($exclude) {
+                foreach ($exclude as $excludedDay) {
+                    return $includedDay != $excludedDay;
+                }
+            });
+        }
+        return $include;
     }
 }
