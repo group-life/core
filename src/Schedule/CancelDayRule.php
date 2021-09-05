@@ -11,24 +11,21 @@ class CancelDayRule implements RuleInterface
         $this->days = $days;
     }
 
-    public function includedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function includedDays(\DateTime $from, \DateInterval $period): array
     {
-        return $schedule;
+        return [];
     }
 
-    public function excludedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
+        $schedule = [];
         $to = (clone $from)->add($period);
         foreach ($this->days as $day => $time) {
-            $removeDay = \DateTime::createFromFormat('Y-m-dh:i', $day . $time);
-            if ($removeDay >= $from && $removeDay <= $to) {
-                for ($i = 0; $i < count($schedule); $i++) {
-                    if ($schedule[$i] == $removeDay) {
-                        unset($schedule[$i]);
-                    }
-                }
+            $addDay = \DateTime::createFromFormat('Y-m-dh:i', $day . $time);
+            if ($addDay >= $from && $addDay <= $to) {
+                $schedule[] = clone $addDay;
             }
         }
-        return array_values($schedule);
+        return $schedule;
     }
 }

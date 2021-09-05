@@ -14,8 +14,9 @@ class DayRule implements RuleInterface
         $this->days = $days;
     }
 
-    public function includedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function includedDays(\DateTime $from, \DateInterval $period): array
     {
+        $schedule = [];
         $to = (clone $from)->add($period);
         foreach ($this->days as $day => $time) {
             $addDay = \DateTime::createFromFormat('Y-m-dh:i', $day . $time);
@@ -25,8 +26,8 @@ class DayRule implements RuleInterface
         }
         return $schedule;
     }
-    public function excludedDays(\DateTime $from, \DateInterval $period, array $schedule): array
+    public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
-        return $schedule;
+        return [];
     }
 }
