@@ -53,7 +53,7 @@ class ScheduleTest extends TestCase
         ]);
         $this->assertEquals(
             [
-                new \DateTime('2021-01-02 09:00'),
+                '1' => new \DateTime('2021-01-02 09:00'),
             ],
             $scheduleDays->materialize($dateFrom, $oneMonth)
         );
