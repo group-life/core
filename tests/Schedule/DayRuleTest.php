@@ -12,10 +12,9 @@ class DayRuleTest extends TestCase
     {
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
-        $day = new DayRule(['2021-01-01' => '10:00', '2021-01-02' => '09:00']);
+        $day = new DayRule('2021-01-02', '09:00');
         $this->assertEquals(
             [
-                new \DateTime('2021-01-01 10:00'),
                 new \DateTime('2021-01-02 09:00'),
             ],
             $day->includedDays($dateFrom, $oneMonth)
@@ -26,7 +25,7 @@ class DayRuleTest extends TestCase
     {
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
-        $day = new DayRule(['2021-01-01' => '10:00', '2021-01-02' => '09:00']);
+        $day = new DayRule('2021-01-02', '09:00');
         $this->assertEquals(
             [],
             $day->excludedDays($dateFrom, $oneMonth)
