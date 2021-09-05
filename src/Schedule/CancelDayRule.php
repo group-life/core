@@ -4,11 +4,13 @@ namespace GroupLife\Core\Schedule;
 
 class CancelDayRule implements RuleInterface
 {
-    private $days;
+    private $day;
+    private $time;
 
-    public function __construct(array $days)
+    public function __construct(string $day, string $time)
     {
-        $this->days = $days;
+        $this->day = $day;
+        $this->time = $time;
     }
 
     public function includedDays(\DateTime $from, \DateInterval $period): array
@@ -18,14 +20,12 @@ class CancelDayRule implements RuleInterface
 
     public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
-        $schedule = [];
         $to = (clone $from)->add($period);
-        foreach ($this->days as $day => $time) {
-            $addDay = \DateTime::createFromFormat('Y-m-dh:i', $day . $time);
-            if ($addDay >= $from && $addDay <= $to) {
-                $schedule[] = clone $addDay;
-            }
+        $addDay = new \DateTime($this->day . ' ' . $this->time);
+        if ($addDay >= $from && $addDay <= $to) {
+            return [$addDay];
+        } else {
+            return [];
         }
-        return $schedule;
     }
 }
