@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GroupLife\Core;
+namespace GroupLife\Core\tests;
 
 use PHPUnit\Framework\TestCase;
 
