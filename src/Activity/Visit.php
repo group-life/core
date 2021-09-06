@@ -11,46 +11,22 @@ class Visit
 {
     private $time;
     private $status;
-    private $visitor;
     private $activity;
+    private $visitor;
 
-    public function __construct(\DateTime $time, string $status, Visitor $visitor, Activity $activity)
+    public function __construct(\DateTime $time, Activity $activity)
     {
         $this->time = $time;
-        $this->status = $status;
-        $this->visitor = $visitor;
         $this->activity = $activity;
+        $this->status = 'planned';
     }
 
-    /**
-     * @return Activity
-     */
-    public function getActivity(): Activity
+    public function createVisit(Visitor $visitor): string
     {
-        return $this->activity;
-    }
-
-    /**
-     * @return string
-     */
-    public function getStatus(): string
-    {
+        $this->visitor = $visitor;
+        if ($this->time === $this->activity->getTime()) {
+            $this->status = 'confirmed';
+        }
         return $this->status;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getTime(): \DateTime
-    {
-        return $this->time;
-    }
-
-    /**
-     * @return Visitor
-     */
-    public function getVisitor(): Visitor
-    {
-        return $this->visitor;
     }
 }
