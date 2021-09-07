@@ -1,6 +1,8 @@
 <?php
 
-namespace GroupLife\Core\tests;
+declare(strict_types=1);
+
+namespace GroupLife\Core\tests\Schedule;
 
 use GroupLife\Core\Schedule\WeekdayRule;
 use PHPUnit\Framework\TestCase;

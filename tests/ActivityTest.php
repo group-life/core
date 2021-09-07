@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GroupLife\Core;
+namespace GroupLife\Core\tests;
 
+use GroupLife\Core\Activity;
 use PHPUnit\Framework\TestCase;
 
 class ActivityTest extends TestCase
