@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
-class AllActivitiesLimitedTime
+class Membership
 {
     private $startDay;
     private $period;
