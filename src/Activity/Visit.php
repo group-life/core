@@ -14,7 +14,7 @@ class Visit
     private $activity;
     private $visitor;
 
-    public function __construct(\DateTime $time, string $activity, Visitor $visitor)
+    public function __construct(\DateTime $time, Activity $activity, Visitor $visitor)
     {
         $this->time = $time;
         $this->activity = $activity;

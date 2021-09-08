@@ -28,7 +28,7 @@ class Activity
     {
         $activityVisits = [];
         foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-                $activityVisits[] = new Visit($day, $this->name, $visitor);
+                $activityVisits[] = new Visit($day, $this, $visitor);
         }
         return $activityVisits;
     }
