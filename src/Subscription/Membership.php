@@ -14,4 +14,20 @@ class Membership
         $this->startDay = $startDay;
         $this->period = $period;
     }
+
+    /**
+     * @return \DateTime
+     */
+    public function getStartDay(): \DateTime
+    {
+        return $this->startDay;
+    }
+
+    /**
+     * @return \DateInterval
+     */
+    public function getPeriod(): \DateInterval
+    {
+        return $this->period;
+    }
 }
