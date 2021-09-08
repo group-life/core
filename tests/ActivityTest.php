@@ -13,21 +13,23 @@ use PHPUnit\Framework\TestCase;
 class ActivityTest extends TestCase
 {
 
-    public function testGetName()
+    public function testGetName(): Activity
     {
-        $activity = new Activity('Skiing');
+        $schedule = new Schedule([
+            new Schedule\WeekdayRule('Tuesday', '10:00')
+        ]);
+        $activity = new Activity('Skiing', $schedule);
         $this->assertEquals('Skiing', $activity->getName());
+        return $activity;
     }
 
-    public function testActivityVisits()
+    /**
+     * @depends testGetName
+     */
+    public function testActivityVisits($activity)
     {
-        $activity = new Activity('Skiing');
-        $rules = new Schedule\WeekdayRule('Sunday', '08:00');
-        $schedule = new Schedule([$rules]);
-        $activity->setSchedule($schedule->materialize(new \DateTime('2021-01-01'), new \DateInterval('P1M')));
         $visitor = new Visitor('Ivan', 'Pupkin');
         $subscription = new Membership(new \DateTime('2021-01-01'), new \DateInterval('P1M'));
-
-        $this->assertCount(5, $activity->subscribe($visitor, $subscription));
+        $this->assertCount(4, $activity->subscribe($visitor, $subscription));
     }
 }

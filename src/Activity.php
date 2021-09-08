@@ -13,9 +13,10 @@ class Activity
     private $name;
     private $schedule;
 
-    public function __construct(string $name)
+    public function __construct(string $name, Schedule $schedule)
     {
         $this->name = $name;
+        $this->schedule = $schedule;
     }
 
     public function getName(): string
@@ -23,23 +24,11 @@ class Activity
         return $this->name;
     }
 
-    /**
-     * @param array $schedule
-     */
-    public function setSchedule(array $schedule): void
-    {
-        $this->schedule = $schedule;
-    }
-
-    public function subscribe(Visitor $visitor, Membership $subscription)
+    public function subscribe(Visitor $visitor, Membership $subscription): array
     {
         $activityVisits = [];
-        $from = $subscription->getStartDay();
-        $to = (clone $from)->add($subscription->getPeriod());
-        foreach ($this->schedule as $day) {
-            if ($day >= $from && $day <= $to) {
+        foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
                 $activityVisits[] = new Visit($day, $this->name, $visitor);
-            }
         }
         return $activityVisits;
     }
