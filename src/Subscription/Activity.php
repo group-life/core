@@ -4,19 +4,22 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
-use GroupLife\Core\Activity;
+use GroupLife\Core;
 
-class Membership implements SubscriptionInterface
+class Activity implements SubscriptionInterface
 {
     private $startDay;
     private $period;
+    private $activity;
 
     public function __construct(
         \DateTime $startDay,
-        \DateInterval $period
+        \DateInterval $period,
+        Core\Activity $activity
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
+        $this->activity = $activity;
     }
 
     /**
@@ -36,11 +39,11 @@ class Membership implements SubscriptionInterface
     }
 
     /**
-    * @return Activity|null
+    * @return Core\Activity|null
     */
-    public function getActivity(): ?Activity
+    public function getActivity(): ?Core\Activity
     {
-        return null;
+        return $this->activity;
     }
     /**
      * @return \DateTime|null

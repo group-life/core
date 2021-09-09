@@ -6,10 +6,11 @@ namespace GroupLife\Core\Subscription;
 
 use GroupLife\Core\Activity;
 
-class Membership implements SubscriptionInterface
+class OneTime implements SubscriptionInterface
 {
     private $startDay;
     private $period;
+    private $visitsNumber;
 
     public function __construct(
         \DateTime $startDay,
@@ -17,6 +18,7 @@ class Membership implements SubscriptionInterface
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
+        $this->visitsNumber = 1;
     }
 
     /**
@@ -54,6 +56,6 @@ class Membership implements SubscriptionInterface
      */
     public function getVisitsNumber(): int
     {
-        return -1;
+        return $this->visitsNumber;
     }
 }
