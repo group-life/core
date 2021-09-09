@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 
 class MembershipTest extends TestCase
 {
-    public function testCnstructor()
+    public function testConstructor()
     {
         new Membership(
             new \DateTime('2021-01-01'),
