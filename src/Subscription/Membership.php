@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
-use GroupLife\Core\Activity;
-
 class Membership implements SubscriptionInterface
 {
     private $startDay;
@@ -33,27 +31,5 @@ class Membership implements SubscriptionInterface
     public function getPeriod(): \DateInterval
     {
         return $this->period;
-    }
-
-    /**
-    * @return Activity|null
-    */
-    public function getActivity(): ?Activity
-    {
-        return null;
-    }
-    /**
-     * @return \DateTime|null
-     */
-    public function getVisitDay(): ?\DateTime
-    {
-        return null;
-    }
-    /**
-     * @return int
-     */
-    public function getVisitsNumber(): int
-    {
-        return -1;
     }
 }

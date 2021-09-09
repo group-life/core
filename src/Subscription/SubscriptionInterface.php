@@ -2,8 +2,6 @@
 
 namespace GroupLife\Core\Subscription;
 
-use GroupLife\Core\Activity;
-
 interface SubscriptionInterface
 {
     /**
@@ -15,19 +13,4 @@ interface SubscriptionInterface
      * @return \DateInterval
      */
     public function getPeriod(): \DateInterval;
-
-    /**
-     * @return Activity|null
-     */
-    public function getActivity(): ?Activity;
-
-    /**
-     * @return \DateTime|null
-     */
-    public function getVisitDay(): ?\DateTime;
-
-    /**
-     * @return int
-     */
-    public function getVisitsNumber(): int;
 }

@@ -7,9 +7,9 @@ namespace GroupLife\Core\tests\Subscription;
 use GroupLife\Core\Subscription\Membership;
 use PHPUnit\Framework\TestCase;
 
-class MembershipTest extends TestCase
+class OneTimeTest extends TestCase
 {
-    public function testScheduleMembershipGetFunctions()
+    public function testScheduleOneTimeTestGetFunctions()
     {
         $purchase = new Membership(new \DateTime('2021-01-01'), new \DateInterval('P1M'));
         $this->assertEquals(new \DateTime('2021-01-01'), $purchase->getStartDay());

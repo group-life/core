@@ -10,7 +10,7 @@ class OneTime implements SubscriptionInterface
 {
     private $startDay;
     private $period;
-    private $visitsNumber;
+    private $status = 'Available';
 
     public function __construct(
         \DateTime $startDay,
@@ -18,7 +18,6 @@ class OneTime implements SubscriptionInterface
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
-        $this->visitsNumber = 1;
     }
 
     /**
@@ -35,27 +34,5 @@ class OneTime implements SubscriptionInterface
     public function getPeriod(): \DateInterval
     {
         return $this->period;
-    }
-
-    /**
-    * @return Activity|null
-    */
-    public function getActivity(): ?Activity
-    {
-        return null;
-    }
-    /**
-     * @return \DateTime|null
-     */
-    public function getVisitDay(): ?\DateTime
-    {
-        return null;
-    }
-    /**
-     * @return int
-     */
-    public function getVisitsNumber(): int
-    {
-        return $this->visitsNumber;
     }
 }
