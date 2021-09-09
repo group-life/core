@@ -7,12 +7,11 @@ use PHPUnit\Framework\TestCase;
 
 class MembershipTest extends TestCase
 {
-    public function someTest()
+    public function testConstructor()
     {
-        $purchase = new Membership(
+        new Membership(
             new \DateTime('2021-01-01'),
             new \DateInterval('P1M')
         );
-        $this->assertIsObject($purchase);
     }
 }
