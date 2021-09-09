@@ -27,6 +27,4 @@ class TimeTable
         });
         return $calendar;
     }
-
-
 }
