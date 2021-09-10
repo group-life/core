@@ -4,17 +4,16 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
-class Membership implements SubscriptionInterface
+class FixedTime implements SubscriptionInterface
 {
     private $startDay;
     private $period;
 
     public function __construct(
-        \DateTime $startDay,
-        \DateInterval $period
+        \DateTime $startDay
     ) {
         $this->startDay = $startDay;
-        $this->period = $period;
+        $this->period = new \DateInterval('P1D');
     }
 
     /**
