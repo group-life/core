@@ -20,7 +20,13 @@ class TimeTable
     {
         $calendar = [];
         foreach ($this->activities as $activity) {
-            $calendar = array_merge($calendar, $activity->getCalendar(clone $startTime, $period));
+            foreach ($activity->getCalendar(clone $startTime, $period) as $day) {
+                $action = new \stdClass();
+                $action->time = $day;
+                $action->activity = $activity->getName();
+                $action->leader = $activity->getLeader()->getFullName();
+                array_push($calendar, $action);
+            }
         }
         usort($calendar, function ($a, $b) {
             return ($a->time <=> $b->time);
