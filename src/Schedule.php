@@ -34,14 +34,17 @@ class Schedule
             $include = array_merge($include, $rule->includedDays($from, $period));
         }
         foreach ($this->rules as $rule) {
-            $exclude = array_merge($rule->excludedDays($from, $period));
+            $exclude = array_merge($exclude, $rule->excludedDays($from, $period));
         }
         if (!empty($exclude)) {
-            return array_filter($include, function ($includedDay) use ($exclude) {
+            return array_values(array_filter($include, function ($includedDay) use ($exclude) {
                 foreach ($exclude as $excludedDay) {
-                    return $includedDay != $excludedDay;
+                    if ($includedDay == $excludedDay) {
+                        return false;
+                    }
                 }
-            });
+                return true;
+            }));
         }
         return $include;
     }
