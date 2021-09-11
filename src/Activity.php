@@ -6,6 +6,7 @@ namespace GroupLife\Core;
 
 use GroupLife\Core\Activity\Visit;
 use GroupLife\Core\Subscription\SubscriptionInterface;
+use GroupLife\Core\Exception\SubscriptionIsForbidden;
 
 class Activity
 {
@@ -38,13 +39,24 @@ class Activity
     public function subscribe(Visitor $visitor, SubscriptionInterface $subscription): array
     {
         $activityVisits = [];
-        foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-            $activityVisits[] = new Visit($day, $this, $visitor);
+        try {
+            $subscription->isValid($this);
+            foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
+                $activityVisits[] = new Visit($day, $this, $visitor);
+            }
+        } catch (SubscriptionIsForbidden $exception) {
+            echo 'Not possible to subscribe: ' . $exception->getMessage();
+//            throw $exception;
+        } finally {
+            return $activityVisits;
         }
-
-        return $activityVisits;
     }
 
+    /**
+     * @param \DateTimeImmutable $startTime
+     * @param \DateInterval $period
+     * @return array
+     */
     public function getCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
+use GroupLife\Core;
+use GroupLife\Core\Exception\SubscriptionIsForbidden;
+
 /**
  * OneTime subscription allows one visit during period of its validity
  */
@@ -37,5 +40,16 @@ class OneTime implements SubscriptionInterface
     public function getPeriod(): \DateInterval
     {
         return $this->period;
+    }
+
+    /**
+     * @param Core\Activity $activity
+     * @throws SubscriptionIsForbidden
+     */
+    public function isValid(Core\Activity $activity): void
+    {
+        if ($this->status !== 'Available') {
+            throw new SubscriptionIsForbidden('This subscription has already been used ');
+        }
     }
 }

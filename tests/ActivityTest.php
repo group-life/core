@@ -34,6 +34,18 @@ class ActivityTest extends TestCase
         $this->assertCount(1, $visits);
     }
 
+    public function testCanSubscribeHavingActivitySubscription()
+    {
+        $visitor = new Visitor('Ivan', 'Pupkin');
+        $subscription = new \GroupLife\Core\Subscription\Activity(
+            new \DateTimeImmutable('2021-09-06'),
+            new \DateInterval('P1W'),
+            self::skiing()
+        );
+        $visits = self::chess()->subscribe($visitor, $subscription);
+        $this->assertCount(0, $visits);
+    }
+
     /**
      * @return Activity
      */
@@ -45,5 +57,18 @@ class ActivityTest extends TestCase
         ]);
 
         return new Activity('Skiing', $schedule, $leader);
+    }
+
+    /**
+     * @return Activity
+     */
+    private static function chess(): Activity
+    {
+        $leader = new Leader('Petr', 'Petrov');
+        $schedule = new Schedule([
+            new Schedule\WeekdayRule('Monday', '09:00')
+        ]);
+
+        return new Activity('Chess', $schedule, $leader);
     }
 }
