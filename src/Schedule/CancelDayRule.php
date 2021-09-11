@@ -13,15 +13,15 @@ class CancelDayRule implements RuleInterface
         $this->time = $time;
     }
 
-    public function includedDays(\DateTime $from, \DateInterval $period): array
+    public function includedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
         return [];
     }
 
-    public function excludedDays(\DateTime $from, \DateInterval $period): array
+    public function excludedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
-        $to = (clone $from)->add($period);
-        $addDay = new \DateTime($this->day . ' ' . $this->time);
+        $to = $from->add($period);
+        $addDay = new \DateTimeImmutable($this->day . ' ' . $this->time);
         if ($addDay >= $from && $addDay <= $to) {
             return [$addDay];
         }

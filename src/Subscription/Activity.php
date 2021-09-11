@@ -16,12 +16,12 @@ class Activity implements SubscriptionInterface
     private $activity;
 
     /**
-     * @param \DateTime $startDay first day of a subscription
+     * @param \DateTimeImmutable $startDay first day of a subscription
      * @param \DateInterval $period period of validity
      * @param Core\Activity $activity what activity is allowed
      */
     public function __construct(
-        \DateTime $startDay,
+        \DateTimeImmutable $startDay,
         \DateInterval $period,
         Core\Activity $activity
     ) {
@@ -31,9 +31,9 @@ class Activity implements SubscriptionInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getStartDay(): \DateTime
+    public function getStartDay(): \DateTimeImmutable
     {
         return $this->startDay;
     }

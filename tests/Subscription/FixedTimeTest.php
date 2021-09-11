@@ -11,8 +11,8 @@ class FixedTimeTest extends TestCase
 {
     public function testScheduleFixedTimeGetFunctions()
     {
-        $purchase = new Subscription\FixedTime(new \DateTime('2021-01-01'));
-        $this->assertEquals(new \DateTime('2021-01-01'), $purchase->getStartDay());
+        $purchase = new Subscription\FixedTime(new \DateTimeImmutable('2021-01-01'));
+        $this->assertEquals(new \DateTimeImmutable('2021-01-01'), $purchase->getStartDay());
         $this->assertEquals(new \DateInterval('P1D'), $purchase->getPeriod());
     }
 }

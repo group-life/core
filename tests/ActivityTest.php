@@ -32,7 +32,7 @@ class ActivityTest extends TestCase
     public function testActivityVisits(Activity $activity)
     {
         $visitor = new Visitor('Ivan', 'Pupkin');
-        $subscription = new Membership(new \DateTime('2021-01-01'), new \DateInterval('P1M'));
+        $subscription = new Membership(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P1M'));
         $this->assertCount(4, $activity->subscribe($visitor, $subscription));
     }
 }

@@ -21,37 +21,37 @@ class TimeTableTest extends TestCase
         $this->assertEquals(
             [
                 (object)[
-                    'time' => new \DateTime('2021-01-04 09:00'),
+                    'time' => new \DateTimeImmutable('2021-01-04 09:00'),
                     'activity' => 'Skiing',
                     'leader' => 'Ivan Ivanov'
                 ],
                 (object)[
-                    'time' => new \DateTime('2021-01-06 10:00'),
+                    'time' => new \DateTimeImmutable('2021-01-06 10:00'),
                     'activity' => 'Chess',
                     'leader' => 'Ivan Ivanov'
                 ],
                 (object)[
-                    'time' => new \DateTime('2021-01-07 11:00'),
+                    'time' => new \DateTimeImmutable('2021-01-07 11:00'),
                     'activity' => 'Swimming',
                     'leader' => 'Ivan Ivanov'
                 ],
                 (object)[
-                    'time' => new \DateTime('2021-01-11 09:00'),
+                    'time' => new \DateTimeImmutable('2021-01-11 09:00'),
                     'activity' => 'Skiing',
                     'leader' => 'Ivan Ivanov'
                 ],
                 (object)[
-                    'time' => new \DateTime('2021-01-13 10:00'),
+                    'time' => new \DateTimeImmutable('2021-01-13 10:00'),
                     'activity' => 'Chess',
                     'leader' => 'Ivan Ivanov'
                 ],
                 (object)[
-                    'time' => new \DateTime('2021-01-14 11:00'),
+                    'time' => new \DateTimeImmutable('2021-01-14 11:00'),
                     'activity' => 'Swimming',
                     'leader' => 'Ivan Ivanov'
                 ],
             ],
-            $calendar->constructCalendar(new \DateTime('2021-01-01'), new \DateInterval('P2W'))
+            $calendar->constructCalendar(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P2W'))
         );
     }
 }

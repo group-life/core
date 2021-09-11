@@ -21,12 +21,12 @@ class Schedule
     }
 
     /**
-     * @param \DateTime $from
+     * @param \DateTimeImmutable $from
      * @param \DateInterval $period
      *
-     * @return \DateTime[]
+     * @return \DateTimeImmutable[]
      */
-    public function materialize(\DateTime $from, \DateInterval $period): array
+    public function materialize(\DateTimeImmutable $from, \DateInterval $period): array
     {
         $include = [];
         $exclude = [];

@@ -17,16 +17,16 @@ class TimeTable
     }
 
     /**
-     * @param \DateTime $startTime
+     * @param \DateTimeImmutable $startTime
      * @param \DateInterval $period
      * @return array
      */
-    public function constructCalendar(\DateTime $startTime, \DateInterval $period): array
+    public function constructCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         $calendar = [];
 
         foreach ($this->activities as $activity) {
-            foreach ($activity->getCalendar(clone $startTime, $period) as $day) {
+            foreach ($activity->getCalendar($startTime, $period) as $day) {
                 $action = new \stdClass();
                 $action->time = $day;
                 $action->activity = $activity->getName();

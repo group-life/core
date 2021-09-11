@@ -40,7 +40,7 @@ class Activity
         return $activityVisits;
     }
 
-    public function getCalendar(\DateTime $startTime, \DateInterval $period): array
+    public function getCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);
     }

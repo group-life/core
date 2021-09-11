@@ -7,19 +7,19 @@ namespace GroupLife\Core\Schedule;
 class DayRule implements RuleInterface
 {
     /**
-     * @var \DateTime
+     * @var \DateTimeImmutable
      */
     private $dateTime;
 
     /**
-     * @param \DateTime $dateTime exact date and time
+     * @param \DateTimeImmutable $dateTime exact date and time
      */
-    public function __construct(\DateTime $dateTime)
+    public function __construct(\DateTimeImmutable $dateTime)
     {
         $this->dateTime = $dateTime;
     }
 
-    public function includedDays(\DateTime $from, \DateInterval $period): array
+    public function includedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
         if ($from <= $this->dateTime && $this->dateTime <= (clone $from)->add($period)) {
             return [$this->dateTime];
@@ -28,7 +28,7 @@ class DayRule implements RuleInterface
         return [];
     }
 
-    public function excludedDays(\DateTime $from, \DateInterval $period): array
+    public function excludedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
         return [];
     }
