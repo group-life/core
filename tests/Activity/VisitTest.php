@@ -17,7 +17,7 @@ class VisitTest extends TestCase
     {
         $leader = new Leader('Ivan', 'Ivanov');
         $schedule = new Schedule([
-            new Schedule\DayRule('2021-01-01', '10:00')
+            new Schedule\DayRule(new \DateTime('2021-01-01 10:00'))
         ]);
         $visit = new Visit(
             new \DateTime('2021-01-01 10:00'),

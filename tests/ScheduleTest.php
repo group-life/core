@@ -32,7 +32,7 @@ class ScheduleTest extends TestCase
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
         $scheduleDays = new Schedule([
-            new Schedule\DayRule('2021-01-01', '10:00')
+            new Schedule\DayRule(new \DateTime('2021-01-01 10:00'))
         ]);
         $this->assertEquals(
             [
@@ -47,7 +47,7 @@ class ScheduleTest extends TestCase
         $dateFrom = new \DateTime('2021-01-01');
         $oneMonth = new \DateInterval('P1M');
         $scheduleDays = new Schedule([
-            new Schedule\DayRule('2021-01-01', '10:00'),
+            new Schedule\DayRule(new \DateTime('2021-01-01 10:00')),
             new Schedule\CancelDayRule('2021-01-01', '10:00')
         ]);
         $this->assertEquals(
