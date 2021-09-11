@@ -24,8 +24,7 @@ class CancelDayRule implements RuleInterface
         $addDay = new \DateTime($this->day . ' ' . $this->time);
         if ($addDay >= $from && $addDay <= $to) {
             return [$addDay];
-        } else {
-            return [];
         }
+        return [];
     }
 }

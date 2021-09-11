@@ -34,10 +34,12 @@ class Activity
     {
         $activityVisits = [];
         foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-                $activityVisits[] = new Visit($day, $this, $visitor);
+            $activityVisits[] = new Visit($day, $this, $visitor);
         }
+
         return $activityVisits;
     }
+
     public function getCalendar(\DateTime $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);

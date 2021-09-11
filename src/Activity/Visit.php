@@ -14,6 +14,11 @@ class Visit
     private $activity;
     private $visitor;
 
+    /**
+     * @param \DateTime $time date and time of a visit
+     * @param Activity $activity what activity to be visit
+     * @param Visitor $visitor who will visit
+     */
     public function __construct(\DateTime $time, Activity $activity, Visitor $visitor)
     {
         $this->time = $time;

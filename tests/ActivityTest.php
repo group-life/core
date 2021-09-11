@@ -27,8 +27,9 @@ class ActivityTest extends TestCase
 
     /**
      * @depends testGetName
+     * @param Activity $activity
      */
-    public function testActivityVisits($activity)
+    public function testActivityVisits(Activity $activity)
     {
         $visitor = new Visitor('Ivan', 'Pupkin');
         $subscription = new Membership(new \DateTime('2021-01-01'), new \DateInterval('P1M'));

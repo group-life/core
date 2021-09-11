@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
+/**
+ * FixedTime subscription allows one visit at exact day and time
+ */
 class FixedTime implements SubscriptionInterface
 {
-    private $startDay;
+    private $dateTime;
     private $period;
 
-    public function __construct(
-        \DateTime $startDay
-    ) {
-        $this->startDay = $startDay;
+    /**
+     * @param \DateTime $dateTime at what day and time a subscription is valid
+     */
+    public function __construct(\DateTime $dateTime)
+    {
+        $this->dateTime = $dateTime;
         $this->period = new \DateInterval('P1D');
     }
 
@@ -21,7 +26,7 @@ class FixedTime implements SubscriptionInterface
      */
     public function getStartDay(): \DateTime
     {
-        return $this->startDay;
+        return $this->dateTime;
     }
 
     /**

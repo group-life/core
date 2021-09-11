@@ -21,7 +21,7 @@ class WeekdayRule implements RuleInterface
     {
         $schedule = [];
         $to = (clone $from)->add($period);
-        if ($from->format('l') != $this->weekday) {
+        if ($from->format('l') !== $this->weekday) {
             $from->modify('next ' . $this->weekday);
         }
         $from->modify($this->startTime);
@@ -30,8 +30,10 @@ class WeekdayRule implements RuleInterface
             $schedule[] = clone $from;
             $from->add($this->repeat);
         }
+
         return $schedule;
     }
+
     public function excludedDays(\DateTime $from, \DateInterval $period): array
     {
         return [];

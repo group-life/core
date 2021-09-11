@@ -14,6 +14,7 @@ class Leader
         $this->name = $name;
         $this->surname = $surname;
     }
+
     public function getFullName(): string
     {
         return $this->name . ' ' . $this->surname;
