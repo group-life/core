@@ -4,26 +4,29 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
-use GroupLife\Core\Activity;
-
+/**
+ * OneTime subscription allows one visit during period of its validity
+ */
 class OneTime implements SubscriptionInterface
 {
     private $startDay;
     private $period;
     private $status = 'Available';
 
-    public function __construct(
-        \DateTime $startDay,
-        \DateInterval $period
-    ) {
+    /**
+     * @param \DateTimeImmutable $startDay first day of a subscription
+     * @param \DateInterval $period period of validity
+     */
+    public function __construct(\DateTimeImmutable $startDay, \DateInterval $period)
+    {
         $this->startDay = $startDay;
         $this->period = $period;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getStartDay(): \DateTime
+    public function getStartDay(): \DateTimeImmutable
     {
         return $this->startDay;
     }

@@ -8,29 +8,37 @@ class TimeTable
 {
     private $activities;
 
+    /**
+     * @param Activity[] $activities
+     */
     public function __construct(array $activities)
     {
         $this->activities = $activities;
     }
 
     /**
+     * @param \DateTimeImmutable $startTime
+     * @param \DateInterval $period
      * @return array
      */
-    public function constructCalendar(\DateTime $startTime, \DateInterval $period): array
+    public function constructCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         $calendar = [];
+
         foreach ($this->activities as $activity) {
-            foreach ($activity->getCalendar(clone $startTime, $period) as $day) {
+            foreach ($activity->getCalendar($startTime, $period) as $day) {
                 $action = new \stdClass();
                 $action->time = $day;
                 $action->activity = $activity->getName();
                 $action->leader = $activity->getLeader()->getFullName();
-                array_push($calendar, $action);
+                $calendar[] = $action;
             }
         }
-        usort($calendar, function ($a, $b) {
+
+        usort($calendar, static function ($a, $b) {
             return ($a->time <=> $b->time);
         });
+
         return $calendar;
     }
 }

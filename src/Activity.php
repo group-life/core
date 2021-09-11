@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace GroupLife\Core;
 
 use GroupLife\Core\Activity\Visit;
-use GroupLife\Core\Subscription\Membership;
+use GroupLife\Core\Subscription\SubscriptionInterface;
 
 class Activity
 {
@@ -30,15 +30,22 @@ class Activity
         return $this->leader;
     }
 
-    public function subscribe(Visitor $visitor, Membership $subscription): array
+    /**
+     * @param Visitor $visitor
+     * @param SubscriptionInterface $subscription
+     * @return Visit[]
+     */
+    public function subscribe(Visitor $visitor, SubscriptionInterface $subscription): array
     {
         $activityVisits = [];
         foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-                $activityVisits[] = new Visit($day, $this, $visitor);
+            $activityVisits[] = new Visit($day, $this, $visitor);
         }
+
         return $activityVisits;
     }
-    public function getCalendar(\DateTime $startTime, \DateInterval $period): array
+
+    public function getCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);
     }

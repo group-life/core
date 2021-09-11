@@ -4,16 +4,26 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Subscription;
 
+use GroupLife\Core;
+
+/**
+ * Activity subscription allows to visit a specific activity
+ */
 class Activity implements SubscriptionInterface
 {
     private $startDay;
     private $period;
     private $activity;
 
+    /**
+     * @param \DateTimeImmutable $startDay first day of a subscription
+     * @param \DateInterval $period period of validity
+     * @param Core\Activity $activity what activity is allowed
+     */
     public function __construct(
-        \DateTime $startDay,
+        \DateTimeImmutable $startDay,
         \DateInterval $period,
-        \GroupLife\Core\Activity $activity
+        Core\Activity $activity
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
@@ -21,9 +31,9 @@ class Activity implements SubscriptionInterface
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getStartDay(): \DateTime
+    public function getStartDay(): \DateTimeImmutable
     {
         return $this->startDay;
     }

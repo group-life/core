@@ -5,9 +5,9 @@ namespace GroupLife\Core\Subscription;
 interface SubscriptionInterface
 {
     /**
-     * @return \DateTime
+     * @return \DateTimeImmutable
      */
-    public function getStartDay(): \DateTime;
+    public function getStartDay(): \DateTimeImmutable;
 
     /**
      * @return \DateInterval
