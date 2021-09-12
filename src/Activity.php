@@ -45,8 +45,7 @@ class Activity
                 $activityVisits[] = new Visit($day, $this, $visitor);
             }
         } catch (SubscriptionIsForbidden $exception) {
-            echo 'Not possible to subscribe: ' . $exception->getMessage();
-//            throw $exception;
+            throw $exception;
         } finally {
             return $activityVisits;
         }
