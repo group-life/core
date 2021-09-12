@@ -53,7 +53,7 @@ class Activity implements SubscriptionInterface
      */
     public function assertValid(Core\Activity $activity): void
     {
-        if ($this->activity !== $activity) {
+        if ($this->activity->getName() !== $activity->getName()) {
             throw new SubscriptionIsForbidden('Your subscription is not valid for this activity');
         }
     }
