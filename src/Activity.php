@@ -39,16 +39,12 @@ class Activity
     public function subscribe(Visitor $visitor, SubscriptionInterface $subscription): array
     {
         $activityVisits = [];
-        try {
-            $subscription->assertValid($this);
-            foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-                $activityVisits[] = new Visit($day, $this, $visitor);
-            }
-        } catch (SubscriptionIsForbidden $exception) {
-            throw $exception;
-        } finally {
-            return $activityVisits;
+
+        $subscription->assertValid($this);
+        foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
+            $activityVisits[] = new Visit($day, $this, $visitor);
         }
+        return $activityVisits;
     }
 
     /**
