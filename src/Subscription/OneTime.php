@@ -46,7 +46,7 @@ class OneTime implements SubscriptionInterface
      * @param Core\Activity $activity
      * @throws SubscriptionIsForbidden
      */
-    public function isValid(Core\Activity $activity): void
+    public function assertValid(Core\Activity $activity): void
     {
         if ($this->status !== 'Available') {
             throw new SubscriptionIsForbidden('This subscription has already been used ');

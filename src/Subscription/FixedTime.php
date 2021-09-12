@@ -42,7 +42,7 @@ class FixedTime implements SubscriptionInterface
     /**
      * @param Core\Activity $activity
      */
-    public function isValid(Core\Activity $activity): void
+    public function assertValid(Core\Activity $activity): void
     {
     }
 }

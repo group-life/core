@@ -40,7 +40,7 @@ class Activity
     {
         $activityVisits = [];
         try {
-            $subscription->isValid($this);
+            $subscription->assertValid($this);
             foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
                 $activityVisits[] = new Visit($day, $this, $visitor);
             }

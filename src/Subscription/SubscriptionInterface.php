@@ -21,5 +21,5 @@ interface SubscriptionInterface
      * @param Core\Activity $activity
      * @throws SubscriptionIsForbidden
      */
-    public function isValid(Core\Activity $activity): void;
+    public function assertValid(Core\Activity $activity): void;
 }

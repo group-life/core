@@ -51,7 +51,7 @@ class Activity implements SubscriptionInterface
      * @param Core\Activity $activity
      * @throws SubscriptionIsForbidden
      */
-    public function isValid(Core\Activity $activity): void
+    public function assertValid(Core\Activity $activity): void
     {
         if ($this->activity !== $activity) {
             throw new SubscriptionIsForbidden('Your subscription is not valid for this activity');
