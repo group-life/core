@@ -44,15 +44,21 @@ class ScheduleTest extends TestCase
 
     public function testMaterializeCancelDayRule()
     {
-        $dateFrom = new \DateTimeImmutable('2021-01-01');
-        $oneMonth = new \DateInterval('P1M');
         $scheduleDays = new Schedule([
-            new Schedule\DayRule(new \DateTimeImmutable('2021-01-01 10:00')),
-            new Schedule\CancelDayRule('2021-01-01', '10:00')
+            new Schedule\WeekdayRule('Monday', '10:00'),
+            new Schedule\CancelDayRule('2021-01-11', '10:00'),
+            new Schedule\CancelDayRule('2021-01-25', '10:00'),
         ]);
+
         $this->assertEquals(
-            [],
-            $scheduleDays->materialize($dateFrom, $oneMonth)
+            [
+                new \DateTimeImmutable('2021-01-04 10:00'),
+                new \DateTimeImmutable('2021-01-18 10:00'),
+            ],
+            $scheduleDays->materialize(
+                new \DateTimeImmutable('2021-01-01'),
+                new \DateInterval('P1M')
+            )
         );
     }
 }
