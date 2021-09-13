@@ -20,7 +20,8 @@
   "scripts": {
     "test": ["phpunit", "@composer style"],
     "style": "phpcs --standard=PSR12 src/ tests/",
-    "style-fix": "phpcbf --standard=PSR12 src/ tests/"
+    "style-fix": "phpcbf --standard=PSR12 src/ tests/",
+    "create-db": "./vendor/bin/doctrine-migrations execute --up 'GroupLife\\Migrations\\Version20210913225128'"
   },
   "scripts-descriptions": {
     "test": "Run the all tests",
