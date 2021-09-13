@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GroupLife\Core\tests;
 
 use GroupLife\Core\Activity;
+use GroupLife\Core\Exception\SubscriptionIsForbidden;
 use GroupLife\Core\Leader;
 use GroupLife\Core\Schedule;
 use GroupLife\Core\Subscription\Membership;
@@ -34,6 +35,18 @@ class ActivityTest extends TestCase
         $this->assertCount(1, $visits);
     }
 
+    public function testCanSubscribeHavingWrongActivitySubscription()
+    {
+        $this->expectException(SubscriptionIsForbidden::class);
+        $visitor = new Visitor('Ivan', 'Pupkin');
+        $subscription = new \GroupLife\Core\Subscription\Activity(
+            new \DateTimeImmutable('2021-09-06'),
+            new \DateInterval('P1W'),
+            self::skiing()
+        );
+        self::chess()->subscribe($visitor, $subscription);
+    }
+
     /**
      * @return Activity
      */
@@ -45,5 +58,18 @@ class ActivityTest extends TestCase
         ]);
 
         return new Activity('Skiing', $schedule, $leader);
+    }
+
+    /**
+     * @return Activity
+     */
+    private static function chess(): Activity
+    {
+        $leader = new Leader('Petr', 'Petrov');
+        $schedule = new Schedule([
+            new Schedule\WeekdayRule('Monday', '09:00')
+        ]);
+
+        return new Activity('Chess', $schedule, $leader);
     }
 }

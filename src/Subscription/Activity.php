@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GroupLife\Core\Subscription;
 
 use GroupLife\Core;
+use GroupLife\Core\Exception\SubscriptionIsForbidden;
 
 /**
  * Activity subscription allows to visit a specific activity
@@ -44,5 +45,16 @@ class Activity implements SubscriptionInterface
     public function getPeriod(): \DateInterval
     {
         return $this->period;
+    }
+
+    /**
+     * @param Core\Activity $activity
+     * @throws SubscriptionIsForbidden
+     */
+    public function assertValid(Core\Activity $activity): void
+    {
+        if ($this->activity->getName() !== $activity->getName()) {
+            throw new SubscriptionIsForbidden('Your subscription is not valid for this activity');
+        }
     }
 }
