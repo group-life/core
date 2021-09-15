@@ -20,7 +20,8 @@
   "scripts": {
     "test": ["phpunit", "@composer style"],
     "style": "phpcs --standard=PSR12 src/ tests/",
-    "style-fix": "phpcbf --standard=PSR12 src/ tests/"
+    "style-fix": "phpcbf --standard=PSR12 src/ tests/",
+    "create-db": "doctrine-migrations migrations:migrate"
   },
   "scripts-descriptions": {
     "test": "Run the all tests",
