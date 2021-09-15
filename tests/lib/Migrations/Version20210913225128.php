@@ -24,7 +24,8 @@ final class Version20210913225128 extends AbstractMigration
             CREATE TABLE `schedule_rule` (
                 id INT AUTO_INCREMENT NOT NULL, 
                 rules TEXT, 
-                schedule INT FOREIGNKEY schedule_rule_schedule_id_fk REFERENCES `schedule`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT, 
+                schedule INT FOREIGNKEY schedule_rule_schedule_id_fk 
+                    REFERENCES `schedule`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT, 
                 PRIMARY KEY(id))
                 ');
     }
