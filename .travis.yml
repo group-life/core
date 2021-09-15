@@ -8,5 +8,5 @@ env:
 install:
   - composer install
 script:
-  - composer test
   - composer create-db
+  - composer test
