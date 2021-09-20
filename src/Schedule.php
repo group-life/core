@@ -6,11 +6,14 @@ namespace GroupLife\Core;
 
 class Schedule
 {
-
     /**
      * @var array
      */
     private $rules;
+    /**
+     * @var int
+     */
+    private $id;
     /**
      * Schedule constructor.
      * @param Schedule\RuleInterface[] $rules
@@ -47,5 +50,36 @@ class Schedule
             }));
         }
         return $include;
+    }
+
+    /**
+     * @return array
+     */
+    public function getData(): array
+    {
+        $rules = [];
+        foreach ($this->rules as $rule) {
+            $object = new \stdClass();
+            $object->type = get_class($rule);
+            $object->data = json_encode($rule);
+            $rules[] = $object;
+        }
+        return $rules;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }

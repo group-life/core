@@ -2,7 +2,7 @@
 
 namespace GroupLife\Core\Schedule;
 
-class CancelDayRule implements RuleInterface
+class CancelDayRule implements RuleInterface, \JsonSerializable
 {
     private $day;
     private $time;
@@ -26,5 +26,13 @@ class CancelDayRule implements RuleInterface
             return [$addDay];
         }
         return [];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'day' => $this->day,
+            'time' => $this->time
+        ];
     }
 }

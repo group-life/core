@@ -61,4 +61,29 @@ class ScheduleTest extends TestCase
             )
         );
     }
+
+    public function testGetData()
+    {
+        $schedule = new Schedule([
+            new Schedule\WeekdayRule('Monday', '10:00'),
+            new Schedule\CancelDayRule('2021-01-11', '10:00'),
+            new Schedule\CancelDayRule('2021-01-25', '10:00'),
+        ]);
+
+        $object1 = new \stdClass();
+        $object1->type = 'GroupLife\Core\Schedule\WeekdayRule';
+        $object1->data = '{"weekday":"Monday","startTime":"10:00"}';
+        $object2 = new \stdClass();
+        $object2->type = 'GroupLife\Core\Schedule\CancelDayRule';
+        $object2->data = '{"day":"2021-01-11","time":"10:00"}';
+        $object3 = new \stdClass();
+        $object3->type = 'GroupLife\Core\Schedule\CancelDayRule';
+        $object3->data = '{"day":"2021-01-25","time":"10:00"}';
+
+        $this->assertEquals([
+            $object1,
+            $object2,
+            $object3
+        ], $schedule->getData());
+    }
 }
