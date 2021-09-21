@@ -3,9 +3,9 @@
 namespace GroupLife\Core\DataMapper;
 
 use GroupLife\Core\Schedule;
-use PHPUnit\Framework\TestCase;
+use GroupLife\Core\Test\TestCaseWithDb;
 
-class ScheduleMapperTest extends TestCase
+class ScheduleMapperTest extends TestCaseWithDb
 {
     public function testInsert()
     {
@@ -14,38 +14,36 @@ class ScheduleMapperTest extends TestCase
             new Schedule\CancelDayRule('2021-01-11', '10:00'),
             new Schedule\CancelDayRule('2021-01-25', '10:00'),
         ]);
-        $pdo = new \PDO('sqlite:../test.db');
-        $mapper = new ScheduleMapper($pdo);
+        $mapper = new ScheduleMapper(self::$db);
         $mapper->insert($schedule);
+        $sqlQuery = self::$db->createQueryBuilder();
+        $sqlQuery
+            ->select('*')
+            ->from('schedule', 's')
+            ->join('s', 'schedule_rule', 'sr', 's.id = sr.schedule')
+            ->where('s.id = 1')
+            ->orderBy('s.id');
+
         $this->assertEquals(
             [
-                [
+                1 => [
                     'type' => 'GroupLife\\Core\\Schedule\\WeekdayRule',
                     'data' => '{"weekday":"Monday","startTime":"10:00"}',
-                    'id' => '1',
                     'schedule' => '1'
 
                 ],
-                [
+                2 => [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-11","time":"10:00"}',
-                    'id' => '2',
                     'schedule' => '1'
                 ],
-                [
+                3 => [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-25","time":"10:00"}',
-                    'id' => '3',
                     'schedule' => '1'
                 ]
             ],
-            $pdo->query('SELECT * FROM schedule JOIN schedule_rule sr ON schedule.id = sr.schedule WHERE schedule.id=1 ORDER BY id')->fetchAll(\PDO::FETCH_ASSOC)
+            $sqlQuery->execute()->fetchAllAssociativeIndexed()
         );
-    }
-    public function testFind() {
-        $pdo = new \PDO('sqlite:../test.db');
-        $mapper = new ScheduleMapper($pdo);
-        $newSchedule = $mapper->find(1);
-        self::assertInstanceOf(Schedule::class, $newSchedule);
     }
 }

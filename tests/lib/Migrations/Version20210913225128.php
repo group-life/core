@@ -35,5 +35,7 @@ final class Version20210913225128 extends AbstractMigration
     public function down(Schema $schema): void
     {
         $this->addSql('drop table schedule');
+        $this->addSql('drop table schedule_rule');
+
     }
 }
