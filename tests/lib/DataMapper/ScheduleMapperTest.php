@@ -46,4 +46,10 @@ class ScheduleMapperTest extends TestCaseWithDb
             $sqlQuery->execute()->fetchAllAssociativeIndexed()
         );
     }
+    public function testFind()
+    {
+        $mapper = new ScheduleMapper(self::$db);
+        $newSchedule = $mapper->find(1);
+        self::assertInstanceOf(Schedule::class, $newSchedule);
+    }
 }
