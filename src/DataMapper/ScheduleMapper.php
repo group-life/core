@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GroupLife\Core\DataMapper;
 
 use GroupLife\Core\Schedule;
@@ -53,7 +55,7 @@ class ScheduleMapper
     {
         $this->insertSchedule->execute();
         $scheduleId = $this->connection->lastInsertId();
-        $object->setId($scheduleId);
+        $object->setId((int)$scheduleId);
         foreach ($object->getData() as $rule) {
             $this->insertScheduleRule->setParameters([$rule->data, $scheduleId, $rule->type])->execute();
         }

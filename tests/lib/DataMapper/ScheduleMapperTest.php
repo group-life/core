@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GroupLife\Core\DataMapper;
 
 use GroupLife\Core\Schedule;
