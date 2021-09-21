@@ -20,11 +20,14 @@
   "autoload": {
     "psr-4": {"GroupLife\\Core\\":"src/"}
   },
+  "autoload-dev": {
+    "psr-4": {"GroupLife\\Core\\Test\\":"tests/lib"}
+  },
   "scripts": {
-    "test": ["phpunit", "@composer style"],
+    "test": ["@composer create-db", "phpunit", "@composer style"],
     "style": "phpcs --standard=PSR12 src/ tests/",
     "style-fix": "phpcbf --standard=PSR12 src/ tests/",
-    "create-db": "doctrine-migrations migrations:migrate"
+    "create-db": "doctrine-migrations migrations:migrate --no-interaction"
   },
   "scripts-descriptions": {
     "test": "Run the all tests",
