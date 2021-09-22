@@ -10,6 +10,10 @@ use GroupLife\Core\Test\TestCaseWithDb;
 
 class ScheduleMapperTest extends TestCaseWithDb
 {
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testInsert()
     {
         $schedule = new Schedule([
@@ -19,34 +23,33 @@ class ScheduleMapperTest extends TestCaseWithDb
         ]);
         $mapper = new ScheduleMapper(self::$db);
         $mapper->insert($schedule);
-        $sqlQuery = self::$db->createQueryBuilder();
-        $sqlQuery
-            ->select('*')
-            ->from('schedule', 's')
-            ->join('s', 'schedule_rule', 'sr', 's.id = sr.schedule')
-            ->where('s.id = 1')
-            ->orderBy('s.id');
+        $sqlQuery = '
+            SELECT sr.type, sr.data, sr.schedule 
+            FROM schedule s 
+            INNER JOIN schedule_rule sr ON s.id = sr.schedule 
+            WHERE s.id = 1 
+            ORDER BY s.id';
 
         $this->assertEquals(
             [
-                1 => [
+                [
                     'type' => 'GroupLife\\Core\\Schedule\\WeekdayRule',
                     'data' => '{"weekday":"Monday","startTime":"10:00"}',
                     'schedule' => '1'
 
                 ],
-                2 => [
+                [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-11","time":"10:00"}',
                     'schedule' => '1'
                 ],
-                3 => [
+                [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-25","time":"10:00"}',
                     'schedule' => '1'
                 ]
             ],
-            $sqlQuery->execute()->fetchAllAssociativeIndexed()
+            self::$db->fetchAllAssociative($sqlQuery)
         );
     }
     public function testFind()
