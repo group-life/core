@@ -6,6 +6,7 @@ namespace GroupLife\Core;
 
 class Visitor implements \JsonSerializable
 {
+    private $id;
     private $name;
     private $surname;
 
@@ -19,11 +20,21 @@ class Visitor implements \JsonSerializable
     {
         return $this->name . ' ' . $this->surname;
     }
-    public function jsonSerialize()
+
+    public function jsonSerialize(): array
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'surname' => $this->surname
         ];
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }

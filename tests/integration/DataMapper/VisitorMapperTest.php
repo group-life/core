@@ -28,11 +28,10 @@ class VisitorMapperTest extends TestCaseWithDb
         );
     }
 
-//    public function testUpdate()
-//    {
-//    }
-//
-//    public function testFind()
-//    {
-//    }
+    public function testFind()
+    {
+        $mapper = new VisitorMapper(self::$db);
+        $newVisitor = $mapper->find(1);
+        self::assertInstanceOf(Visitor::class, $newVisitor);
+    }
 }
