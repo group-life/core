@@ -28,11 +28,14 @@
     "test": ["@composer create-db", "phpunit", "@composer style"],
     "style": "phpcs --standard=PSR12 src/ tests/",
     "style-fix": "phpcbf --standard=PSR12 src/ tests/",
-    "create-db": "doctrine-migrations migrations:migrate --no-interaction"
+    "create-db": "doctrine-migrations migrations:migrate --no-interaction",
+    "generate-migration": "doctrine-migrations migrations:generate"
   },
   "scripts-descriptions": {
     "test": "Run the all tests",
     "style": "Run the code style checker",
-    "style-fix": "Fix the code style"
+    "style-fix": "Fix the code style",
+    "create-db": "Create actual database",
+    "generate-migration": "Generate new migration preset"
   }
 }
