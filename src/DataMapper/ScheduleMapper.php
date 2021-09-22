@@ -34,7 +34,7 @@ class ScheduleMapper
             $rules[] = new $type($timeRule[0], $timeRule[1]);
         }
         $object = new Schedule($rules);
-        $object->setId($id);
+        $object->persists($id);
         return $object;
     }
 
@@ -42,7 +42,7 @@ class ScheduleMapper
     {
         $this->connection->insert('schedule', ['id' => null]);
         $scheduleId = $this->connection->lastInsertId();
-        $object->setId((int)$scheduleId);
+        $object->persists((int)$scheduleId);
 
         foreach ($object->getData() as $rule) {
             $this->connection->insert(
