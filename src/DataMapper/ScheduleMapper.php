@@ -9,36 +9,23 @@ use GroupLife\Core\Schedule;
 class ScheduleMapper
 {
     private $connection;
-    private $findSchedule;
-    private $insertSchedule;
-    private $insertScheduleRule;
 
     public function __construct(\Doctrine\DBAL\Connection $connection)
     {
         $this->connection = $connection;
+    }
 
-        $this->insertSchedule = $this->connection->createQueryBuilder();
-        $this->insertSchedule
-            ->insert('schedule')->values(['id' => 'null']);
-
-        $this->insertScheduleRule = $this->connection->createQueryBuilder();
-        $this->insertScheduleRule
-            ->insert('schedule_rule')
-            ->values(['data' => '?', 'schedule_id' => '?', 'type' => '?']);
-
-        $this->findSchedule = $this->connection->createQueryBuilder();
-        $this->findSchedule
+    public function find(int $id): Schedule
+    {
+        $stmt = $this->connection
+            ->createQueryBuilder()
             ->select('*')
             ->from('schedule', 's')
             ->join('s', 'schedule_rule', 'sr', 's.id = sr.schedule_id')
             ->where('s.id = ?')
             ->orderBy('s.id');
-    }
-
-    public function find(int $id): Schedule
-    {
-        $this->findSchedule->setParameter('1', $id);
-        $data = $this->findSchedule->execute()->fetchAllAssociative();
+        $stmt->setParameter('1', $id);
+        $data = $stmt->execute()->fetchAllAssociative();
 
         $rules = [];
         foreach ($data as $rule) {
@@ -53,11 +40,15 @@ class ScheduleMapper
 
     public function insert(Schedule $object)
     {
-        $this->insertSchedule->execute();
+        $this->connection->insert('schedule', ['id' => null]);
         $scheduleId = $this->connection->lastInsertId();
         $object->setId((int)$scheduleId);
+
         foreach ($object->getData() as $rule) {
-            $this->insertScheduleRule->setParameters([$rule->data, $scheduleId, $rule->type])->execute();
+            $this->connection->insert(
+                'schedule_rule',
+                ['data' => $rule->data, 'schedule_id' => $scheduleId, 'type' => $rule->type]
+            );
         }
     }
 }
