@@ -1,8 +1,14 @@
 <?php
 
-namespace GroupLife\Core;
+declare(strict_types=1);
 
+namespace GroupLife\Core\tests;
+
+use GroupLife\Core\Activity;
+use GroupLife\Core\Leader;
+use GroupLife\Core\Schedule;
 use GroupLife\Core\Schedule\WeekdayRule;
+use GroupLife\Core\TimeTable;
 use PHPUnit\Framework\TestCase;
 
 class TimeTableTest extends TestCase

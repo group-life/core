@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace GroupLife\Core\DataMapper;
+namespace GroupLife\Core\tests\DataMapper;
 
+use GroupLife\Core\DataMapper\ScheduleMapper;
 use GroupLife\Core\Schedule;
 use GroupLife\Core\Test\TestCaseWithDb;
 
