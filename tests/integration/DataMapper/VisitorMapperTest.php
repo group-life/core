@@ -8,12 +8,24 @@ use GroupLife\Core\Visitor;
 
 class VisitorMapperTest extends TestCaseWithDb
 {
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testInsert()
     {
         $visitor = new Visitor('Petr', 'Petrov');
         $mapper = new VisitorMapper(self::$db);
         $mapper->insert($visitor);
-        self::assertEquals([], self::$db->fetchAllAssociative('SELECT * FROM `Visitor` WHERE id = 1'));
+        self::assertEquals(
+            [
+                [
+                    'id' => '1',
+                    'name' => 'Petr',
+                    'surname' => 'Petrov'
+                ]
+            ],
+            self::$db->fetchAllAssociative('SELECT * FROM `Visitor` WHERE id = 1')
+        );
     }
 
 //    public function testUpdate()

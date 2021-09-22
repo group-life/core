@@ -17,6 +17,7 @@ class VisitorMapper
 
     public function insert(Visitor $visitor)
     {
+        $this->connection->insert('visitor', json_decode(json_encode($visitor), true));
     }
 
     public function update(Visitor $object)

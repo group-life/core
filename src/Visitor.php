@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core;
 
-class Visitor
+class Visitor implements \JsonSerializable
 {
     private $name;
     private $surname;
@@ -18,5 +18,12 @@ class Visitor
     public function getFullName(): string
     {
         return $this->name . ' ' . $this->surname;
+    }
+    public function jsonSerialize()
+    {
+        return [
+            'name' => $this->name,
+            'surname' => $this->surname
+        ];
     }
 }
