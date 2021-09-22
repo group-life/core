@@ -24,9 +24,9 @@ class ScheduleMapperTest extends TestCaseWithDb
         $mapper = new ScheduleMapper(self::$db);
         $mapper->insert($schedule);
         $sqlQuery = '
-            SELECT sr.type, sr.data, sr.schedule 
+            SELECT sr.type, sr.data, sr.schedule_id AS schedule 
             FROM schedule s 
-            INNER JOIN schedule_rule sr ON s.id = sr.schedule 
+            INNER JOIN schedule_rule sr ON s.id = sr.schedule_id
             WHERE s.id = 1 
             ORDER BY s.id';
 

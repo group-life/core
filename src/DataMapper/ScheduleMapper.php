@@ -24,13 +24,13 @@ class ScheduleMapper
         $this->insertScheduleRule = $this->connection->createQueryBuilder();
         $this->insertScheduleRule
             ->insert('schedule_rule')
-            ->values(['data' => '?', 'schedule' => '?', 'type' => '?']);
+            ->values(['data' => '?', 'schedule_id' => '?', 'type' => '?']);
 
         $this->findSchedule = $this->connection->createQueryBuilder();
         $this->findSchedule
             ->select('*')
             ->from('schedule', 's')
-            ->join('s', 'schedule_rule', 'sr', 's.id = sr.schedule')
+            ->join('s', 'schedule_rule', 'sr', 's.id = sr.schedule_id')
             ->where('s.id = ?')
             ->orderBy('s.id');
     }
