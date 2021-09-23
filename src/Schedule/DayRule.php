@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Schedule;
 
-class DayRule implements RuleInterface
+class DayRule implements RuleInterface, \JsonSerializable
 {
     /**
      * @var \DateTimeImmutable
@@ -31,5 +31,12 @@ class DayRule implements RuleInterface
     public function excludedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
         return [];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'dateTime' => $this->dateTime,
+        ];
     }
 }

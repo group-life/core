@@ -19,20 +19,26 @@ final class Version20210913225128 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('CREATE TABLE `schedule` (id INT AUTO_INCREMENT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('
-            CREATE TABLE `schedule_rule` (
-                id INT AUTO_INCREMENT NOT NULL, 
-                rules TEXT, 
-                schedule INT FOREIGNKEY schedule_rule_schedule_id_fk 
-                    REFERENCES `schedule`(`id`) ON DELETE CASCADE ON UPDATE RESTRICT, 
-                PRIMARY KEY(id))
-                ');
+            create table schedule
+            (
+                id integer not null constraint rule_pk primary key autoincrement
+            );
+        ');
+        $this->addSql('
+            create table schedule_rule
+            (
+                id integer not null constraint schedule_rule_pk primary key autoincrement,
+                data text not null,
+                schedule_id int references schedule,
+                type text not null
+            );
+        ');
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('DROP TABLE schedule');
-        $this->addSql('DROP TABLE rule');
+        $this->addSql('drop table schedule');
+        $this->addSql('drop table schedule_rule');
     }
 }

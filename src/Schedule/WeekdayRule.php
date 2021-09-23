@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\Schedule;
 
-class WeekdayRule implements RuleInterface
+class WeekdayRule implements RuleInterface, \JsonSerializable
 {
     private $weekday;
     private $startTime;
@@ -36,5 +36,13 @@ class WeekdayRule implements RuleInterface
     public function excludedDays(\DateTimeImmutable $from, \DateInterval $period): array
     {
         return [];
+    }
+
+    public function jsonSerialize(): array
+    {
+        return [
+            'weekday' => $this->weekday,
+            'startTime' => $this->startTime,
+        ];
     }
 }
