@@ -84,6 +84,6 @@ class ScheduleTest extends TestCase
             $object1,
             $object2,
             $object3
-        ], $schedule->getData());
+        ], json_decode(json_encode($schedule))->rules);
     }
 }

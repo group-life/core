@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core;
 
-class Schedule
+class Schedule implements \JsonSerializable
 {
     /**
      * @var array
@@ -53,25 +53,24 @@ class Schedule
     }
 
     /**
-     * @return array
-     */
-    public function getData(): array
-    {
-        $rules = [];
-        foreach ($this->rules as $rule) {
-            $object = new \stdClass();
-            $object->type = get_class($rule);
-            $object->data = json_encode($rule);
-            $rules[] = $object;
-        }
-        return $rules;
-    }
-
-    /**
      * @param int $id
      */
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    public function jsonSerialize(): \stdClass
+    {
+        $data = new \stdClass();
+        $data->id = $this->id;
+        $data->rules = [];
+        foreach ($this->rules as $rule) {
+            $object = new \stdClass();
+            $object->type = get_class($rule);
+            $object->data = json_encode($rule);
+            $data->rules[] = $object;
+        }
+        return $data;
     }
 }
