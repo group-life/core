@@ -22,9 +22,9 @@ final class Version20210922120640 extends AbstractMigration
         $this->addSql('
             create table visitor
             (
-                id integer not null constraint rule_pk primary key autoincrement,
-                name text,
-                surname text
+                id integer not null constraint visitor_pk primary key autoincrement,
+                name text not null,
+                surname text not null
             );
         ');
     }
