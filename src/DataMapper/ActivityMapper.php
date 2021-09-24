@@ -25,8 +25,12 @@ class ActivityMapper
      */
     public function insert(Activity $activity)
     {
-        $this->scheduleMapper->insert($activity->getData()->schedule);
-        $this->leaderMapper->insert($activity->getData()->leader);
+        if (empty($activity->getData()->schedule->jsonSerialize()->id)) {
+            $this->scheduleMapper->insert($activity->getData()->schedule);
+        }
+        if (empty($activity->getData()->leader->jsonSerialize()['id'])) {
+            $this->leaderMapper->insert($activity->getData()->leader);
+        }
         $this->connection->insert(
             'activity',
             [

@@ -44,11 +44,11 @@ class ScheduleMapper
         $scheduleId = $this->connection->lastInsertId();
         $object->persists((int)$scheduleId);
 
-        $scheduleData = json_decode(json_encode($object), true);
-        foreach ($scheduleData['rules'] as $rule) {
+        $scheduleData = $object->jsonSerialize();
+        foreach ($scheduleData->rules as $rule) {
             $this->connection->insert(
                 'schedule_rule',
-                ['data' => $rule['data'], 'schedule_id' => $scheduleData['id'], 'type' => $rule['type']]
+                ['data' => $rule->data, 'schedule_id' => $scheduleData->id, 'type' => $rule->type]
             );
         }
     }
