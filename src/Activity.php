@@ -10,6 +10,7 @@ use GroupLife\Core\Exception\SubscriptionIsForbidden;
 
 class Activity
 {
+    private $id;
     private $name;
     private $schedule;
     private $leader;
@@ -55,5 +56,26 @@ class Activity
     public function getCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function getData(): \stdClass
+    {
+        $data = new \stdClass();
+        $data->id = $this->id;
+        $data->name = $this->name;
+        $data->leader = $this->leader;
+        $data->schedule = $this->schedule;
+        return $data;
     }
 }
