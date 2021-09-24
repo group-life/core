@@ -21,7 +21,7 @@ class LeaderMapper
      */
     public function insert(Leader $leader)
     {
-        $this->connection->insert('leader', json_decode(json_encode($leader), true));
+        $this->connection->insert('leader', $leader->jsonSerialize());
         $leader->persists((int)$this->connection->lastInsertId());
     }
 
