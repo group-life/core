@@ -21,7 +21,7 @@ class VisitorMapper
      */
     public function insert(Visitor $visitor)
     {
-        $this->connection->insert('visitor', json_decode(json_encode($visitor), true));
+        $this->connection->insert('visitor', $visitor->jsonSerialize());
         $visitor->persists((int)$this->connection->lastInsertId());
     }
 
@@ -30,7 +30,7 @@ class VisitorMapper
      */
     public function find(int $id): Visitor
     {
-        $data = $this->connection->fetchAssociative('SELECT * FROM visitor WHERE id=?', [$id]);
+        $data = $this->connection->fetchAssociative('SELECT * FROM visitor WHERE id = ?', [$id]);
         return new Visitor($data['name'], $data['surname']);
     }
 }
