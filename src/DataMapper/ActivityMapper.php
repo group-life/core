@@ -31,8 +31,8 @@ class ActivityMapper
             'activity',
             [
                 'name' => $activity->getData()->name,
-                'schedule_id' => json_decode(json_encode($activity->getData()->schedule))->id,
-                'leader_id' => json_decode(json_encode($activity->getData()->leader))->id
+                'schedule_id' => $activity->getData()->schedule->jsonSerialize()->id,
+                'leader_id' => $activity->getData()->leader->jsonSerialize()['id']
             ]
         );
         $activity->persists((int)$this->connection->lastInsertId());
