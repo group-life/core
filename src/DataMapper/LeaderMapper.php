@@ -25,7 +25,10 @@ class LeaderMapper
         $leader->persists((int)$this->connection->lastInsertId());
     }
 
+
     /**
+     * @param int $id
+     * @return Leader
      * @throws \Doctrine\DBAL\Exception
      */
     public function find(int $id): Leader

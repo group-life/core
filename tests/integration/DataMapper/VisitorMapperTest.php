@@ -28,6 +28,9 @@ class VisitorMapperTest extends TestCaseWithDb
         );
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testFind()
     {
         $mapper = new VisitorMapper(self::$db);

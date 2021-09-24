@@ -21,6 +21,9 @@ class Visitor implements \JsonSerializable
         return $this->name . ' ' . $this->surname;
     }
 
+    /**
+     * @return array
+     */
     public function jsonSerialize(): array
     {
         return [

@@ -52,6 +52,11 @@ class ScheduleMapperTest extends TestCaseWithDb
             self::$db->fetchAllAssociative($sqlQuery)
         );
     }
+
+    /**
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testFind()
     {
         $mapper = new ScheduleMapper(self::$db);

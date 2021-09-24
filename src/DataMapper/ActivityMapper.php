@@ -43,6 +43,9 @@ class ActivityMapper
     }
 
     /**
+     * @param int $id
+     * @return Activity
+     * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
     public function find(int $id): Activity

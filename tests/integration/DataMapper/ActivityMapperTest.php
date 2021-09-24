@@ -13,6 +13,9 @@ use GroupLife\Core\Test\TestCaseWithDb;
 class ActivityMapperTest extends TestCaseWithDb
 {
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testInsert()
     {
         $leader = new Leader('Petr', 'Petrov');
@@ -52,6 +55,9 @@ class ActivityMapperTest extends TestCaseWithDb
         );
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testFind()
     {
         $mapper = new ActivityMapper(self::$db);

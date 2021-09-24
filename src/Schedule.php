@@ -60,6 +60,9 @@ class Schedule implements \JsonSerializable
         $this->id = $id;
     }
 
+    /**
+     * @return \stdClass
+     */
     public function jsonSerialize(): \stdClass
     {
         $data = new \stdClass();

@@ -15,6 +15,12 @@ class ScheduleMapper
         $this->connection = $connection;
     }
 
+    /**
+     * @param int $id
+     * @return Schedule
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function find(int $id): Schedule
     {
         $stmt = $this->connection
@@ -38,6 +44,10 @@ class ScheduleMapper
         return $object;
     }
 
+    /**
+     * @param Schedule $object
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function insert(Schedule $object)
     {
         $this->connection->insert('schedule', ['id' => null]);
