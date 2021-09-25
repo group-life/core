@@ -6,6 +6,8 @@ namespace GroupLife\Core\tests\DataMapper;
 
 use GroupLife\Core\Activity;
 use GroupLife\Core\DataMapper\ActivityMapper;
+use GroupLife\Core\DataMapper\LeaderMapper;
+use GroupLife\Core\DataMapper\ScheduleMapper;
 use GroupLife\Core\Leader;
 use GroupLife\Core\Schedule;
 use GroupLife\Core\Test\TestCaseWithDb;
@@ -25,7 +27,7 @@ class ActivityMapperTest extends TestCaseWithDb
             new Schedule\CancelDayRule('2021-01-25', '10:00'),
         ]);
         $activity = new Activity('Chess', $schedule, $leader);
-        $mapper = new ActivityMapper(self::$db);
+        $mapper = new ActivityMapper(self::$db, new ScheduleMapper(self::$db), new LeaderMapper(self::$db));
         $mapper->insert($activity);
         $sqlQuery = '
             select
@@ -60,7 +62,7 @@ class ActivityMapperTest extends TestCaseWithDb
      */
     public function testFind()
     {
-        $mapper = new ActivityMapper(self::$db);
+        $mapper = new ActivityMapper(self::$db, new ScheduleMapper(self::$db), new LeaderMapper(self::$db));
         $id = 1;
         $newActivity = $mapper->find($id);
         self::assertInstanceOf(Activity::class, $newActivity);

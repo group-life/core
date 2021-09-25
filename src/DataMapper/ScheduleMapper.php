@@ -58,7 +58,7 @@ class ScheduleMapper
         foreach ($scheduleData->rules as $rule) {
             $this->connection->insert(
                 'schedule_rule',
-                ['data' => $rule->data, 'schedule_id' => $scheduleData->id, 'type' => $rule->type]
+                ['data' => $rule->data, 'schedule_id' => $scheduleId, 'type' => $rule->type]
             );
         }
     }

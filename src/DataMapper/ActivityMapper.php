@@ -12,11 +12,14 @@ class ActivityMapper
     private $scheduleMapper;
     private $leaderMapper;
 
-    public function __construct(\Doctrine\DBAL\Connection $connection)
-    {
+    public function __construct(
+        \Doctrine\DBAL\Connection $connection,
+        ScheduleMapper $scheduleMapper,
+        LeaderMapper $leaderMapper
+    ) {
         $this->connection = $connection;
-        $this->scheduleMapper = new ScheduleMapper($connection);
-        $this->leaderMapper = new LeaderMapper($connection);
+        $this->scheduleMapper = $scheduleMapper;
+        $this->leaderMapper = $leaderMapper;
     }
 
     /**
