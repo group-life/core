@@ -9,7 +9,7 @@ use GroupLife\Core;
 /**
  * Membership subscription allows to visit any activity
  */
-class Membership implements SubscriptionInterface
+class Membership implements SubscriptionInterface, \JsonSerializable
 {
     private $startDay;
     private $period;
@@ -47,5 +47,17 @@ class Membership implements SubscriptionInterface
      */
     public function assertValid(Core\Activity $activity): void
     {
+    }
+
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->type = get_class($this);
+        $object->startDay = $this->startDay;
+        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->activity = 'All activities';
+        $object->visitor = $this->visitor;
+        $object->status = 'Available';
+        return $object;
     }
 }
