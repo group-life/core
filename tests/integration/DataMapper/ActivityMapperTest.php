@@ -46,14 +46,14 @@ class ActivityMapperTest extends TestCaseWithDb
 ';
         self::assertEquals(
             [
-                'activity_id' => (string)$activity->getData()->id,
+                'activity_id' => (string)$activity->jsonSerialize()->id,
                 'activity_name' => 'Chess',
                 'teacher_name' => 'Petr',
                 'teacher_surname' => 'Petrov',
                 'schedule_type' => '3',
                 'schedule_rules' => '3'
             ],
-            self::$db->fetchAssociative($sqlQuery, [$activity->getData()->id])
+            self::$db->fetchAssociative($sqlQuery, [$activity->jsonSerialize()->id])
         );
     }
 
@@ -66,6 +66,6 @@ class ActivityMapperTest extends TestCaseWithDb
         $id = 1;
         $newActivity = $mapper->find($id);
         self::assertInstanceOf(Activity::class, $newActivity);
-        self::assertEquals($id, $newActivity->getData()->id);
+        self::assertEquals($id, $newActivity->jsonSerialize()->id);
     }
 }

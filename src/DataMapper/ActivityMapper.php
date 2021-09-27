@@ -28,18 +28,19 @@ class ActivityMapper
      */
     public function insert(Activity $activity)
     {
-        if (empty($activity->getData()->schedule->jsonSerialize()->id)) {
-            $this->scheduleMapper->insert($activity->getData()->schedule);
+        var_dump(json_encode($activity, JSON_PRETTY_PRINT));
+        if (empty($activity->jsonSerialize()->schedule->jsonSerialize()->id)) {
+            $this->scheduleMapper->insert($activity->jsonSerialize()->schedule);
         }
-        if (empty($activity->getData()->leader->jsonSerialize()['id'])) {
-            $this->leaderMapper->insert($activity->getData()->leader);
+        if (empty($activity->jsonSerialize()->leader->jsonSerialize()['id'])) {
+            $this->leaderMapper->insert($activity->jsonSerialize()->leader);
         }
         $this->connection->insert(
             'activity',
             [
-                'name' => $activity->getData()->name,
-                'schedule_id' => $activity->getData()->schedule->jsonSerialize()->id,
-                'leader_id' => $activity->getData()->leader->jsonSerialize()['id']
+                'name' => $activity->jsonSerialize()->name,
+                'schedule_id' => $activity->jsonSerialize()->schedule->jsonSerialize()->id,
+                'leader_id' => $activity->jsonSerialize()->leader->jsonSerialize()['id']
             ]
         );
         $activity->persists((int)$this->connection->lastInsertId());

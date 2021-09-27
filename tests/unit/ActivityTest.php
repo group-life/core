@@ -42,7 +42,8 @@ class ActivityTest extends TestCase
         $subscription = new \GroupLife\Core\Subscription\Activity(
             new \DateTimeImmutable('2021-09-06'),
             new \DateInterval('P1W'),
-            self::skiing()
+            self::skiing(),
+            $visitor
         );
         self::chess()->subscribe($visitor, $subscription);
     }

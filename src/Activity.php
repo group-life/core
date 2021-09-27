@@ -8,7 +8,7 @@ use GroupLife\Core\Activity\Visit;
 use GroupLife\Core\Subscription\SubscriptionInterface;
 use GroupLife\Core\Exception\SubscriptionIsForbidden;
 
-class Activity
+class Activity implements \JsonSerializable
 {
     private $id;
     private $name;
@@ -69,7 +69,7 @@ class Activity
     /**
      * @return \stdClass
      */
-    public function getData(): \stdClass
+    public function jsonSerialize(): \stdClass
     {
         $data = new \stdClass();
         $data->id = $this->id;
