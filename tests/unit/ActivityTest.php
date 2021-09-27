@@ -47,6 +47,28 @@ class ActivityTest extends TestCase
         self::chess()->subscribe($visitor, $subscription);
     }
 
+    public function testJsonSerialize()
+    {
+        $object = new \stdClass();
+        $object->id = null;
+        $object->name = 'Skiing';
+
+        $object->leader = new \stdClass();
+        $object->leader->id = null;
+        $object->leader->name = 'Ivan';
+        $object->leader->surname = 'Ivanov';
+
+        $rule = new \stdClass();
+        $rule->type = 'GroupLife\Core\Schedule\WeekdayRule';
+        $rule->data = '{"weekday":"Tuesday","startTime":"10:00"}';
+
+        $object->schedule = new \stdClass();
+        $object->schedule->id = null;
+        $object->schedule->rules = [$rule];
+
+        self::assertEquals($object, getDataObject(self::skiing()));
+    }
+
     /**
      * @return Activity
      */

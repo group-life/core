@@ -11,7 +11,19 @@ class VisitorTest extends TestCase
 {
     public function testReturnFullName()
     {
-        $visitor = new Visitor("Vasya", "Pupkin");
-        $this->assertEquals('Vasya Pupkin', $visitor->getFullName());
+        $this->assertEquals('Vasya Pupkin', self::visitorVasya()->getFullName());
+    }
+    public function testJsonSerialize()
+    {
+        $object = new \stdClass();
+        $object->id = null;
+        $object->name = 'Vasya';
+        $object->surname = 'Pupkin';
+        self::assertEquals($object, getDataObject(self::visitorVasya()));
+    }
+
+    private static function visitorVasya(): Visitor
+    {
+        return new Visitor('Vasya', 'Pupkin');
     }
 }

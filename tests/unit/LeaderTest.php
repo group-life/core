@@ -12,7 +12,20 @@ class LeaderTest extends TestCase
 
     public function testGetFullName()
     {
-        $leader = new Leader('Ivan', 'Ivanov');
-        $this->assertEquals('Ivan Ivanov', $leader->getFullName());
+        $this->assertEquals('Ivan Ivanov', self::leaderIvan()->getFullName());
+    }
+
+    public function testJsonSerialize()
+    {
+        $object = new \stdClass();
+        $object->id = null;
+        $object->name = 'Ivan';
+        $object->surname = 'Ivanov';
+        self::assertEquals($object, getDataObject(self::leaderIvan()));
+    }
+
+    private static function leaderIvan(): Leader
+    {
+        return $leader = new Leader('Ivan', 'Ivanov');
     }
 }
