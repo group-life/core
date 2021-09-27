@@ -7,6 +7,7 @@ namespace GroupLife\Core\tests\Subscription;
 use GroupLife\Core;
 use GroupLife\Core\Leader;
 use GroupLife\Core\Subscription;
+use GroupLife\Core\Visitor;
 use PHPUnit\Framework\TestCase;
 
 class ActivityTest extends TestCase
@@ -19,7 +20,8 @@ class ActivityTest extends TestCase
         $purchase = new Subscription\Activity(
             new \DateTimeImmutable('2021-01-01'),
             new \DateInterval('P1M'),
-            $activity
+            $activity,
+            new Visitor('Ivan', 'Pupkin')
         );
         $this->assertEquals(new \DateTimeImmutable('2021-01-01'), $purchase->getStartDay());
         $this->assertEquals(new \DateInterval('P1M'), $purchase->getPeriod());

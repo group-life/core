@@ -13,14 +13,16 @@ class FixedTime implements SubscriptionInterface
 {
     private $dateTime;
     private $period;
+    private $visitor;
 
     /**
      * @param \DateTimeImmutable $dateTime at what day and time a subscription is valid
      */
-    public function __construct(\DateTimeImmutable $dateTime)
+    public function __construct(\DateTimeImmutable $dateTime, Core\Visitor $visitor)
     {
         $this->dateTime = $dateTime;
         $this->period = new \DateInterval('P1D');
+        $this->visitor = $visitor;
     }
 
     /**
