@@ -23,14 +23,14 @@ class ActivityTest extends TestCase
     public function testCanSubscribeHavingMembershipSubscription()
     {
         $visitor = new Visitor('Ivan', 'Pupkin');
-        $subscription = new Membership(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P1M'));
+        $subscription = new Membership(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P1M'), $visitor);
         $this->assertCount(4, self::skiing()->subscribe($visitor, $subscription));
     }
 
     public function testCanSubscribeHavingOneTimeSubscription()
     {
         $visitor = new Visitor('Ivan', 'Pupkin');
-        $subscription = new OneTime(new \DateTimeImmutable('2021-09-06'), new \DateInterval('P1W'));
+        $subscription = new OneTime(new \DateTimeImmutable('2021-09-06'), new \DateInterval('P1W'), $visitor);
         $visits = self::skiing()->subscribe($visitor, $subscription);
         $this->assertCount(1, $visits);
     }
@@ -42,7 +42,8 @@ class ActivityTest extends TestCase
         $subscription = new \GroupLife\Core\Subscription\Activity(
             new \DateTimeImmutable('2021-09-06'),
             new \DateInterval('P1W'),
-            self::skiing()
+            self::skiing(),
+            $visitor
         );
         self::chess()->subscribe($visitor, $subscription);
     }
