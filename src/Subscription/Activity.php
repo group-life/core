@@ -12,6 +12,7 @@ use GroupLife\Core\Exception\SubscriptionIsForbidden;
  */
 class Activity implements SubscriptionInterface
 {
+    private $id;
     private $startDay;
     private $period;
     private $activity;
@@ -59,5 +60,12 @@ class Activity implements SubscriptionInterface
         if ($this->activity->getName() !== $activity->getName()) {
             throw new SubscriptionIsForbidden('Your subscription is not valid for this activity');
         }
+    }
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }

@@ -12,6 +12,7 @@ use GroupLife\Core\Exception\SubscriptionIsForbidden;
  */
 class OneTime implements SubscriptionInterface
 {
+    private $id;
     private $startDay;
     private $period;
     private $visitor;
@@ -53,5 +54,13 @@ class OneTime implements SubscriptionInterface
         if ($this->status !== 'Available') {
             throw new SubscriptionIsForbidden('This subscription has already been used ');
         }
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }

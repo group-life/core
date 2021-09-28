@@ -11,6 +11,7 @@ use GroupLife\Core;
  */
 class Membership implements SubscriptionInterface
 {
+    private $id;
     private $startDay;
     private $period;
     private $visitor;
@@ -47,5 +48,13 @@ class Membership implements SubscriptionInterface
      */
     public function assertValid(Core\Activity $activity): void
     {
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }

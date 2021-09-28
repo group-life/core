@@ -11,6 +11,7 @@ use GroupLife\Core;
  */
 class FixedTime implements SubscriptionInterface
 {
+    private $id;
     private $dateTime;
     private $period;
     private $visitor;
@@ -46,5 +47,13 @@ class FixedTime implements SubscriptionInterface
      */
     public function assertValid(Core\Activity $activity): void
     {
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }
