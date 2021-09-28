@@ -20,6 +20,11 @@ function getDataArray(object $obj): array
     return json_decode(json_encode($obj), true);
 }
 
+/**
+ * @param int $seconds
+ * @return DateInterval
+ * @throws Exception
+ */
 function getDateInterval(int $seconds): DateInterval
 {
     $day1 = date_create('@0');

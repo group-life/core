@@ -14,7 +14,6 @@ use GroupLife\Core\Test\TestCaseWithDb;
 
 class ActivityMapperTest extends TestCaseWithDb
 {
-
     /**
      * @throws \Doctrine\DBAL\Exception
      * @throws \GroupLife\Core\Exception\SavingToDbIsForbidden
@@ -48,7 +47,7 @@ class ActivityMapperTest extends TestCaseWithDb
                 inner join schedule s on a.schedule_id = s.id
             inner join schedule_rule sr on s.id = sr.schedule_id
             where activity_id = ?
-';
+        ';
         self::assertEquals(
             [
                 'activity_id' => (string)getDataObject($activity)->id,

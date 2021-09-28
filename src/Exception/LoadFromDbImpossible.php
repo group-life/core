@@ -2,7 +2,7 @@
 
 namespace GroupLife\Core\Exception;
 
-class LoadFromDbImpossible
+class LoadFromDbImpossible extends \Exception
 {
 
 }

@@ -31,6 +31,8 @@ class LeaderMapper
     public function find(int $id): Leader
     {
         $data = $this->connection->fetchAssociative('SELECT * FROM leader WHERE id=?', [$id]);
-        return new Leader($data['name'], $data['surname']);
+        $leader = new Leader($data['name'], $data['surname']);
+        $leader->persists($id);
+        return $leader;
     }
 }
