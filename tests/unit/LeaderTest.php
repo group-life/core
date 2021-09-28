@@ -26,6 +26,6 @@ class LeaderTest extends TestCase
 
     private static function leaderIvan(): Leader
     {
-        return $leader = new Leader('Ivan', 'Ivanov');
+        return new Leader('Ivan', 'Ivanov');
     }
 }
