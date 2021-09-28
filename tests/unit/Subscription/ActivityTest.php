@@ -13,8 +13,8 @@ class ActivityTest extends TestCase
 {
     public function testScheduleActivityGetFunctions()
     {
-        $this->assertEquals(new \DateTimeImmutable('2021-01-01'), self::ActivitySubsription()->getStartDay());
-        $this->assertEquals(new \DateInterval('P1M'), self::ActivitySubsription()->getPeriod());
+        $this->assertEquals(new \DateTimeImmutable('2021-01-01'), self::activitySubscription()->getStartDay());
+        $this->assertEquals(new \DateInterval('P1M'), self::activitySubscription()->getPeriod());
     }
     public function testJsonSerialize()
     {
@@ -55,11 +55,11 @@ class ActivityTest extends TestCase
             "status": "Available"
         }
     JSON,
-            json_encode(self::ActivitySubsription(), JSON_PRETTY_PRINT)
+            json_encode(self::activitySubscription(), JSON_PRETTY_PRINT)
         );
     }
 
-    private static function ActivitySubsription()
+    private static function activitySubscription(): Subscription\Activity
     {
         $leader = new Leader('Ivan', 'Ivanov');
         $visitor = new Core\Visitor('Sidor', 'Sidorov');
