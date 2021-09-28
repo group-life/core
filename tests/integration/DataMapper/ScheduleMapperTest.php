@@ -23,30 +23,30 @@ class ScheduleMapperTest extends TestCaseWithDb
         ]);
         $mapper = new ScheduleMapper(self::$db);
         $mapper->insert($schedule);
-        $sqlQuery = '
+        $sqlQuery = "
             SELECT sr.type, sr.data, sr.schedule_id AS schedule 
             FROM schedule s 
             INNER JOIN schedule_rule sr ON s.id = sr.schedule_id
-            WHERE s.id = 1 
-            ORDER BY s.id';
+            WHERE s.id = " . getDataObject($schedule)->id . " 
+            ORDER BY s.id";
 
         $this->assertEquals(
             [
                 [
                     'type' => 'GroupLife\\Core\\Schedule\\WeekdayRule',
                     'data' => '{"weekday":"Monday","startTime":"10:00"}',
-                    'schedule' => '1'
+                    'schedule' => (string)getDataObject($schedule)->id
 
                 ],
                 [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-11","time":"10:00"}',
-                    'schedule' => '1'
+                    'schedule' => (string)getDataObject($schedule)->id
                 ],
                 [
                     'type' => 'GroupLife\\Core\\Schedule\\CancelDayRule',
                     'data' => '{"day":"2021-01-25","time":"10:00"}',
-                    'schedule' => '1'
+                    'schedule' => (string)getDataObject($schedule)->id
                 ]
             ],
             self::$db->fetchAllAssociative($sqlQuery)

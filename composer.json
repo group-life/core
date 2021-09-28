@@ -19,7 +19,8 @@
     "doctrine/migrations": "^3.2"
   },
   "autoload": {
-    "psr-4": {"GroupLife\\Core\\":"src/"}
+    "psr-4": {"GroupLife\\Core\\":"src/"},
+    "files": ["src/functions.php"]
   },
   "autoload-dev": {
     "psr-4": {"GroupLife\\Core\\Test\\":"tests/lib"}

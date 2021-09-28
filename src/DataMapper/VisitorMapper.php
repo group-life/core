@@ -21,7 +21,7 @@ class VisitorMapper
      */
     public function insert(Visitor $visitor)
     {
-        $this->connection->insert('visitor', $visitor->jsonSerialize());
+        $this->connection->insert('visitor', getDataArray($visitor));
         $visitor->persists((int)$this->connection->lastInsertId());
     }
 

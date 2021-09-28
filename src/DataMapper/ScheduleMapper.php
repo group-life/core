@@ -44,7 +44,7 @@ class ScheduleMapper
         $scheduleId = $this->connection->lastInsertId();
         $object->persists((int)$scheduleId);
 
-        foreach ($object->getData() as $rule) {
+        foreach (getDataObject($object)->rules as $rule) {
             $this->connection->insert(
                 'schedule_rule',
                 ['data' => $rule->data, 'schedule_id' => $scheduleId, 'type' => $rule->type]

@@ -8,8 +8,9 @@ use GroupLife\Core\Activity\Visit;
 use GroupLife\Core\Subscription\SubscriptionInterface;
 use GroupLife\Core\Exception\SubscriptionIsForbidden;
 
-class Activity
+class Activity implements \JsonSerializable
 {
+    private $id;
     private $name;
     private $schedule;
     private $leader;
@@ -55,5 +56,18 @@ class Activity
     public function getCalendar(\DateTimeImmutable $startTime, \DateInterval $period): array
     {
         return $this->schedule->materialize($startTime, $period);
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $data = new \stdClass();
+        $data->id = $this->id;
+        $data->name = $this->name;
+        $data->schedule = $this->schedule;
+        $data->leader = $this->leader;
+        return $data;
     }
 }

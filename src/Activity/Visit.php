@@ -7,7 +7,7 @@ namespace GroupLife\Core\Activity;
 use GroupLife\Core\Activity;
 use GroupLife\Core\Visitor;
 
-class Visit
+class Visit implements \JsonSerializable
 {
     private $time;
     private $status;
@@ -25,5 +25,15 @@ class Visit
         $this->activity = $activity;
         $this->status = 'planned';
         $this->visitor = $visitor;
+    }
+
+    public function jsonSerialize(): \stdClass
+    {
+        $data = new \stdClass();
+        $data->time = $this->time;
+        $data->status = $this->status;
+        $data->activity = $this->activity;
+        $data->visitor = $this->visitor;
+        return $data;
     }
 }
