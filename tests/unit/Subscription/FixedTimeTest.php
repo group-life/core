@@ -10,12 +10,18 @@ use PHPUnit\Framework\TestCase;
 
 class FixedTimeTest extends TestCase
 {
+    /**
+     * @throws \Exception
+     */
     public function testScheduleFixedTimeGetFunctions()
     {
         $this->assertEquals(new \DateTimeImmutable('2021-01-01'), self::fixedTimeSubscription()->getStartDay());
         $this->assertEquals(new \DateInterval('P1D'), self::fixedTimeSubscription()->getPeriod());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testJsonSerialize()
     {
         self::assertJsonStringEqualsJsonString(
@@ -42,9 +48,13 @@ class FixedTimeTest extends TestCase
         );
     }
 
+    /**
+     * @return FixedTime
+     * @throws \Exception
+     */
     private static function fixedTimeSubscription(): FixedTime
     {
         $visitor = new Visitor('Sidor', 'Sidorov');
-        return new FixedTime(new \DateTimeImmutable('2021-01-01'), $visitor);
+        return new FixedTime(new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')), $visitor);
     }
 }

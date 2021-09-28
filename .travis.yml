@@ -7,8 +7,5 @@ env:
   - DB=sqlite
 install:
   - composer install
-before_script:
-  - echo 'Europe/Berlin' | sudo tee /etc/timezone
-  - sudo dpkg-reconfigure --frontend noninteractive tzdata
 script:
   - composer test

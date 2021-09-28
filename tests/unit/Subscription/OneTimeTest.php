@@ -10,6 +10,9 @@ use PHPUnit\Framework\TestCase;
 
 class OneTimeTest extends TestCase
 {
+    /**
+     * @throws \Exception
+     */
     public function testScheduleOneTimeTestGetFunctions()
     {
 
@@ -17,6 +20,9 @@ class OneTimeTest extends TestCase
         $this->assertEquals(new \DateInterval('P1M'), self::oneTimeSubscription()->getPeriod());
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testJsonSerialize()
     {
         self::assertJsonStringEqualsJsonString(
@@ -45,10 +51,15 @@ class OneTimeTest extends TestCase
 
     /**
      * @return OneTime
+     * @throws \Exception
      */
     private static function oneTimeSubscription(): OneTime
     {
         $visitor = new Visitor('Sidor', 'Sidorov');
-        return new OneTime(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P1M'), $visitor);
+        return new OneTime(
+            new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')),
+            new \DateInterval('P1M'),
+            $visitor
+        );
     }
 }
