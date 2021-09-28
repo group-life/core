@@ -49,24 +49,30 @@ class ActivityTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $object = new \stdClass();
-        $object->id = null;
-        $object->name = 'Skiing';
-
-        $object->leader = new \stdClass();
-        $object->leader->id = null;
-        $object->leader->name = 'Ivan';
-        $object->leader->surname = 'Ivanov';
-
-        $rule = new \stdClass();
-        $rule->type = 'GroupLife\Core\Schedule\WeekdayRule';
-        $rule->data = '{"weekday":"Tuesday","startTime":"10:00"}';
-
-        $object->schedule = new \stdClass();
-        $object->schedule->id = null;
-        $object->schedule->rules = [$rule];
-
-        self::assertEquals($object, getDataObject(self::skiing()));
+        self::assertEquals(
+            <<<'JSON'
+{
+    "id": null,
+    "name": "Skiing",
+    "schedule": {
+        "id": null,
+        "rules": [
+            {
+                "type": "GroupLife\\Core\\Schedule\\WeekdayRule",
+                "data": "{\"weekday\":\"Tuesday\",\"startTime\":\"10:00\"}"
+            }
+        ]
+    },
+    "leader": {
+        "id": null,
+        "name": "Ivan",
+        "surname": "Ivanov"
+    }
+}
+JSON
+            ,
+            json_encode(self::skiing(), JSON_PRETTY_PRINT)
+        );
     }
 
     /**
