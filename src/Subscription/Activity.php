@@ -10,7 +10,7 @@ use GroupLife\Core\Exception\SubscriptionIsForbidden;
 /**
  * Activity subscription allows to visit a specific activity
  */
-class Activity implements SubscriptionInterface
+class Activity implements SubscriptionInterface, \JsonSerializable
 {
     private $id;
     private $startDay;
@@ -67,5 +67,21 @@ class Activity implements SubscriptionInterface
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->id = $this->id;
+        $object->type = get_class($this);
+        $object->startDay = $this->startDay;
+        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->activity = $this->activity;
+        $object->visitor = $this->visitor;
+        $object->status = 'Available';
+        return $object;
     }
 }

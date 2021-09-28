@@ -9,7 +9,7 @@ use GroupLife\Core;
 /**
  * Membership subscription allows to visit any activity
  */
-class Membership implements SubscriptionInterface
+class Membership implements SubscriptionInterface, \JsonSerializable
 {
     private $id;
     private $startDay;
@@ -56,5 +56,21 @@ class Membership implements SubscriptionInterface
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->id = $this->id;
+        $object->type = get_class($this);
+        $object->startDay = $this->startDay;
+        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->activity = null;
+        $object->visitor = $this->visitor;
+        $object->status = 'Available';
+        return $object;
     }
 }

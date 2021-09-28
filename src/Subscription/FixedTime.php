@@ -9,7 +9,7 @@ use GroupLife\Core;
 /**
  * FixedTime subscription allows one visit at exact day and time
  */
-class FixedTime implements SubscriptionInterface
+class FixedTime implements SubscriptionInterface, \JsonSerializable
 {
     private $id;
     private $dateTime;
@@ -55,5 +55,21 @@ class FixedTime implements SubscriptionInterface
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->id = $this->id;
+        $object->type = get_class($this);
+        $object->startDay = $this->dateTime;
+        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->activity = null;
+        $object->visitor = $this->visitor;
+        $object->status = 'Available';
+        return $object;
     }
 }

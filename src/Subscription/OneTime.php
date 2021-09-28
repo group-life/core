@@ -10,7 +10,7 @@ use GroupLife\Core\Exception\SubscriptionIsForbidden;
 /**
  * OneTime subscription allows one visit during period of its validity
  */
-class OneTime implements SubscriptionInterface
+class OneTime implements SubscriptionInterface, \JsonSerializable
 {
     private $id;
     private $startDay;
@@ -62,5 +62,21 @@ class OneTime implements SubscriptionInterface
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->id = $this->id;
+        $object->type = get_class($this);
+        $object->startDay = $this->startDay;
+        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->activity = null;
+        $object->visitor = $this->visitor;
+        $object->status = $this->status;
+        return $object;
     }
 }
