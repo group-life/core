@@ -16,7 +16,10 @@ class ActivityTest extends TestCase
      */
     public function testScheduleActivityGetFunctions()
     {
-        $this->assertEquals(new \DateTimeImmutable('2021-01-01'), self::activitySubscription()->getStartDay());
+        $this->assertEquals(
+            new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')),
+            self::activitySubscription()->getStartDay()
+        );
         $this->assertEquals(new \DateInterval('P1M'), self::activitySubscription()->getPeriod());
     }
 
@@ -31,7 +34,7 @@ class ActivityTest extends TestCase
             "id": null,
             "type": "GroupLife\\Core\\Subscription\\Activity",
             "startDay": {
-                "date": "2021-01-01 00:00:00.000000+0100",
+                "date": "2021-01-01 00:00:00.000000",
                 "timezone_type": 3,
                 "timezone": "Europe\/Berlin"
             },
