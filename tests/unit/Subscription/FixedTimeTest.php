@@ -30,7 +30,7 @@ class FixedTimeTest extends TestCase
                     "id": null,
                     "type": "GroupLife\\Core\\Subscription\\FixedTime",
                     "startDay": {
-                        "date": "2021-01-01 00:00:00.000000",
+                        "date": "2021-01-01 00:00:00.000000+0100",
                         "timezone_type": 3,
                         "timezone": "Europe\/Berlin"
                     },
