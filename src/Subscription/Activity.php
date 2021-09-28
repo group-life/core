@@ -15,6 +15,7 @@ class Activity implements SubscriptionInterface
     private $startDay;
     private $period;
     private $activity;
+    private $visitor;
 
     /**
      * @param \DateTimeImmutable $startDay first day of a subscription
@@ -24,11 +25,13 @@ class Activity implements SubscriptionInterface
     public function __construct(
         \DateTimeImmutable $startDay,
         \DateInterval $period,
-        Core\Activity $activity
+        Core\Activity $activity,
+        Core\Visitor $visitor
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
         $this->activity = $activity;
+        $this->visitor = $visitor;
     }
 
     /**

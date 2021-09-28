@@ -14,16 +14,18 @@ class OneTime implements SubscriptionInterface
 {
     private $startDay;
     private $period;
+    private $visitor;
     private $status = 'Available';
 
     /**
      * @param \DateTimeImmutable $startDay first day of a subscription
      * @param \DateInterval $period period of validity
      */
-    public function __construct(\DateTimeImmutable $startDay, \DateInterval $period)
+    public function __construct(\DateTimeImmutable $startDay, \DateInterval $period, Core\Visitor $visitor)
     {
         $this->startDay = $startDay;
         $this->period = $period;
+        $this->visitor = $visitor;
     }
 
     /**
