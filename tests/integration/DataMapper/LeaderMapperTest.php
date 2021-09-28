@@ -18,15 +18,14 @@ class LeaderMapperTest extends TestCaseWithDb
         $leader = new Leader('Petr', 'Petrov');
         $mapper = new LeaderMapper(self::$db);
         $mapper->insert($leader);
+        $leaderId = getDataObject($leader)->id;
         self::assertEquals(
             [
-                [
-                    'id' => '1',
-                    'name' => 'Petr',
-                    'surname' => 'Petrov'
-                ]
+                'id' => (string)$leaderId,
+                'name' => 'Petr',
+                'surname' => 'Petrov'
             ],
-            self::$db->fetchAllAssociative('SELECT * FROM `leader` WHERE id = 1')
+            self::$db->fetchAssociative('SELECT * FROM `leader` WHERE id = ?', [$leaderId])
         );
     }
 
