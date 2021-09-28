@@ -15,11 +15,11 @@ class VisitorTest extends TestCase
     }
     public function testJsonSerialize()
     {
-        $object = new \stdClass();
-        $object->id = null;
-        $object->name = 'Vasya';
-        $object->surname = 'Pupkin';
-        self::assertEquals($object, getDataObject(self::visitorVasya()));
+        self::assertJsonStringEqualsJsonString('{
+            "id": null,
+            "name": "Vasya",
+            "surname": "Pupkin"
+        }', json_encode(self::visitorVasya(), JSON_PRETTY_PRINT));
     }
 
     private static function visitorVasya(): Visitor

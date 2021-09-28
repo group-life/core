@@ -17,11 +17,11 @@ class LeaderTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $object = new \stdClass();
-        $object->id = null;
-        $object->name = 'Ivan';
-        $object->surname = 'Ivanov';
-        self::assertEquals($object, getDataObject(self::leaderIvan()));
+        self::assertJsonStringEqualsJsonString('{
+                "id": null,
+                "name": "Ivan",
+                "surname": "Ivanov"
+            }', json_encode(self::leaderIvan(), JSON_PRETTY_PRINT));
     }
 
     private static function leaderIvan(): Leader

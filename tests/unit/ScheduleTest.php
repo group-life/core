@@ -69,27 +69,27 @@ class ScheduleTest extends TestCase
             new Schedule\CancelDayRule('2021-01-11', '10:00'),
             new Schedule\CancelDayRule('2021-01-25', '10:00'),
         ]);
-        $object = new \stdClass();
-        $object->id = null;
-        $object->rules = [];
-
-        $rule1 = new \stdClass();
-        $rule1->type = 'GroupLife\Core\Schedule\WeekdayRule';
-        $rule1->data = '{"weekday":"Monday","startTime":"10:00"}';
-
-        $rule2 = new \stdClass();
-        $rule2->type = 'GroupLife\Core\Schedule\CancelDayRule';
-        $rule2->data = '{"day":"2021-01-11","time":"10:00"}';
-
-        $rule3 = new \stdClass();
-        $rule3->type = 'GroupLife\Core\Schedule\CancelDayRule';
-        $rule3->data = '{"day":"2021-01-25","time":"10:00"}';
-
-        $object->rules = [
-            $rule1,
-            $rule2,
-            $rule3
-        ];
-        $this->assertEquals($object, getDataObject($schedule));
+        self::assertJsonStringEqualsJsonString(
+            <<<'JSON'
+    {
+        "id": null,
+        "rules": [
+            {
+                "type": "GroupLife\\Core\\Schedule\\WeekdayRule",
+                "data": "{\"weekday\":\"Monday\",\"startTime\":\"10:00\"}"
+            },
+            {
+                "type": "GroupLife\\Core\\Schedule\\CancelDayRule",
+                "data": "{\"day\":\"2021-01-11\",\"time\":\"10:00\"}"
+            },
+            {
+                "type": "GroupLife\\Core\\Schedule\\CancelDayRule",
+                "data": "{\"day\":\"2021-01-25\",\"time\":\"10:00\"}"
+            }
+        ]
+    }
+    JSON,
+            json_encode($schedule, JSON_PRETTY_PRINT)
+        );
     }
 }
