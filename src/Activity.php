@@ -70,4 +70,12 @@ class Activity implements \JsonSerializable
         $data->leader = $this->leader;
         return $data;
     }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
+    }
 }

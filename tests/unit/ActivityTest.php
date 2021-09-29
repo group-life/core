@@ -49,7 +49,7 @@ class ActivityTest extends TestCase
 
     public function testJsonSerialize()
     {
-        self::assertEquals(
+        self::assertJsonStringEqualsJsonString(
             <<<'JSON'
 {
     "id": null,
