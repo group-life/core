@@ -10,6 +10,9 @@
          stopOnFailure="false"
          beStrictAboutTestsThatDoNotTestAnything="false"
 >
+    <php>
+        <ini name="date.timezone" value="Europe/Berlin"/>
+    </php>
     <testsuites>
         <testsuite name="Main Test Suite">
             <directory suffix="Test.php">./tests</directory>

@@ -16,7 +16,7 @@ class FixedTimeTest extends TestCase
     public function testScheduleFixedTimeGetFunctions()
     {
         $this->assertEquals(
-            new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')),
+            new \DateTimeImmutable('2021-01-01'),
             self::fixedTimeSubscription()->getStartDay()
         );
         $this->assertEquals(new \DateInterval('P1D'), self::fixedTimeSubscription()->getPeriod());
@@ -56,6 +56,6 @@ class FixedTimeTest extends TestCase
     private static function fixedTimeSubscription(): FixedTime
     {
         $visitor = new Visitor('Sidor', 'Sidorov');
-        return new FixedTime(new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')), $visitor);
+        return new FixedTime(new \DateTimeImmutable('2021-01-01'), $visitor);
     }
 }

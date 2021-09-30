@@ -17,7 +17,7 @@ class OneTimeTest extends TestCase
     {
 
         $this->assertEquals(
-            new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')),
+            new \DateTimeImmutable('2021-01-01'),
             self::oneTimeSubscription()->getStartDay()
         );
         $this->assertEquals(new \DateInterval('P1M'), self::oneTimeSubscription()->getPeriod());
@@ -59,7 +59,7 @@ class OneTimeTest extends TestCase
     {
         $visitor = new Visitor('Sidor', 'Sidorov');
         return new OneTime(
-            new \DateTimeImmutable('2021-01-01', new \DateTimeZone('Europe/Berlin')),
+            new \DateTimeImmutable('2021-01-01'),
             new \DateInterval('P1M'),
             $visitor
         );
