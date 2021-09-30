@@ -30,39 +30,39 @@ class ActivityTest extends TestCase
     {
         self::assertJsonStringEqualsJsonString(
             <<<'JSON'
-        {
-            "id": null,
-            "type": "GroupLife\\Core\\Subscription\\Activity",
-            "startDay": {
-                "date": "2021-01-01 00:00:00.000000",
-                "timezone_type": 3,
-                "timezone": "Europe\/Berlin"
-            },
-            "period": 2678400,
-            "activity": {
-                "id": null,
-                "name": "Chess",
-                "schedule": {
+                {
                     "id": null,
-                    "rules": [
-                        {
-                            "type": "GroupLife\\Core\\Schedule\\WeekdayRule",
-                            "data": "{\"weekday\":\"Sunday\",\"startTime\":\"10:00\"}"
+                    "type": "GroupLife\\Core\\Subscription\\Activity",
+                    "startDay": {
+                        "date": "2021-01-01 00:00:00.000000",
+                        "timezone_type": 3,
+                        "timezone": "Europe\/Berlin"
+                    },
+                    "period": 2678400,
+                    "activity": {
+                        "id": null,
+                        "name": "Chess",
+                        "schedule": {
+                            "id": null,
+                            "rules": [
+                                {
+                                    "type": "GroupLife\\Core\\Schedule\\WeekdayRule",
+                                    "data": "{\"weekday\":\"Sunday\",\"startTime\":\"10:00\"}"
+                                }
+                            ]
+                        },
+                        "leader": {
+                            "id": null,
+                            "name": "Ivan",
+                            "surname": "Ivanov"
                         }
-                    ]
-                },
-                "leader": {
-                    "id": null,
-                    "name": "Ivan",
-                    "surname": "Ivanov"
+                    },
+                    "visitor": {
+                        "id": null,
+                        "name": "Sidor",
+                        "surname": "Sidorov"
+                    }
                 }
-            },
-            "visitor": {
-                "id": null,
-                "name": "Sidor",
-                "surname": "Sidorov"
-            },
-        }
     JSON,
             json_encode(self::activitySubscription(), JSON_PRETTY_PRINT)
         );

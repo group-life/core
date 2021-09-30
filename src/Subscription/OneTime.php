@@ -56,7 +56,7 @@ class OneTime implements SubscriptionInterface, \JsonSerializable
      */
     public function assertValid(Core\Activity $activity): void
     {
-        if ($this->status) {
+        if (!$this->status) {
             throw new SubscriptionIsForbidden('This subscription has already been used ');
         }
     }

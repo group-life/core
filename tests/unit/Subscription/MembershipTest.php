@@ -42,7 +42,7 @@ class MembershipTest extends TestCase
                         "id": null,
                         "name": "Sidor",
                         "surname": "Sidorov"
-                    },
+                    }
                 }
             JSON,
             json_encode(self::membershipSubscription())

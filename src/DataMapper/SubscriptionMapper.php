@@ -51,7 +51,7 @@ class SubscriptionMapper
                     'type' => $data->type,
                     'time_from' => $data->startDay->date,
                     'period' => $data->period,
-                    'available' => $data->status ?? null,
+                    'available' => $data->status ?? true,
                 ]
             );
         $subscription->persists((int)$this->connection->lastInsertId());
@@ -109,7 +109,7 @@ class SubscriptionMapper
                     $subscriptionTime,
                     $subscriptionPeriod,
                     $subscriptionVisitor,
-                    $data['available'] ?? false
+                    $data['available'] === 'true'
                 );
                 $newSubscription->persists($id);
                 break;

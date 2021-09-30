@@ -44,7 +44,7 @@ class OneTimeTest extends TestCase
                         "name": "Sidor",
                         "surname": "Sidorov"
                     },
-                    "status": "true"
+                    "status": true
                 }
             JSON,
             json_encode(self::oneTimeSubscription())
