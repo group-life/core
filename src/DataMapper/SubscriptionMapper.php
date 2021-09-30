@@ -109,7 +109,7 @@ class SubscriptionMapper
                     $subscriptionTime,
                     $subscriptionPeriod,
                     $subscriptionVisitor,
-                    $data['available'] === 'true'
+                    $data['available'] === '1'
                 );
                 $newSubscription->persists($id);
                 break;
