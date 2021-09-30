@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\DataMapper;
 
+use Cassandra\Date;
 use GroupLife\Core\Exception\LoadFromDbImpossible;
 use GroupLife\Core\Exception\SavingToDbIsForbidden;
 use GroupLife\Core\Subscription\SubscriptionInterface;
@@ -74,7 +75,7 @@ class SubscriptionMapper
         $data = $this->connection->fetchAssociative('SELECT * FROM subscription WHERE id=?', [$id]);
         $subscriptionType = $data['type'];
         $subscriptionTime = new \DateTimeImmutable($data['time_from']);
-        $subscriptionPeriod = getDateInterval((int)$data['period']);
+        $subscriptionPeriod = new \DateInterval($data['period']);
         $subscriptionVisitor = $visitorMapper->find((int)$data['visitor']);
 
         switch ($subscriptionType) {

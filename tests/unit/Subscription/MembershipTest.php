@@ -37,7 +37,7 @@ class MembershipTest extends TestCase
                         "timezone_type": 3,
                         "timezone": "Europe\/Berlin"
                     },
-                    "period": 2678400,
+                    "period": "P0Y1M0DT0H0M0S",
                     "visitor": {
                         "id": null,
                         "name": "Sidor",

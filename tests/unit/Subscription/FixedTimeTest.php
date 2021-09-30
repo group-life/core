@@ -37,7 +37,7 @@ class FixedTimeTest extends TestCase
                         "timezone_type": 3,
                         "timezone": "Europe\/Berlin"
                     },
-                    "period": 86400,
+                    "period": "P0Y0M1DT0H0M0S",
                     "visitor": {
                         "id": null,
                         "name": "Sidor",

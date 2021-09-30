@@ -66,7 +66,7 @@ class FixedTime implements SubscriptionInterface, \JsonSerializable
         $object->id = $this->id;
         $object->type = get_class($this);
         $object->startDay = $this->dateTime;
-        $object->period = date_create('@0')->add($this->period)->getTimestamp();
+        $object->period = $this->period->format('P%yY%mM%dDT%hH%iM%sS');
         $object->visitor = $this->visitor;
         return $object;
     }
