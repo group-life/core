@@ -89,7 +89,6 @@ class SubscriptionMapper
                     ),
                     $subscriptionVisitor
                 );
-                $newSubscription->persists($id);
                 break;
             case 'GroupLife\Core\Subscription\Membership':
                 $newSubscription = new $subscriptionType(
@@ -111,7 +110,6 @@ class SubscriptionMapper
                     $subscriptionVisitor,
                     $data['available'] === '1'
                 );
-                $newSubscription->persists($id);
                 break;
             default:
                 throw new LoadFromDbImpossible('Unexpected subscription type');
