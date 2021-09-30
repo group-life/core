@@ -62,7 +62,6 @@ class ActivityTest extends TestCase
                 "name": "Sidor",
                 "surname": "Sidorov"
             },
-            "status": "Available"
         }
     JSON,
             json_encode(self::activitySubscription(), JSON_PRETTY_PRINT)

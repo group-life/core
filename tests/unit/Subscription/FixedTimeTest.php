@@ -38,13 +38,11 @@ class FixedTimeTest extends TestCase
                         "timezone": "Europe\/Berlin"
                     },
                     "period": 86400,
-                    "activity": null,
                     "visitor": {
                         "id": null,
                         "name": "Sidor",
                         "surname": "Sidorov"
                     },
-                    "status": "Available"
                 }
             JSON,
             json_encode(self::fixedTimeSubscription())

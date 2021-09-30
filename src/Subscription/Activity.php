@@ -81,7 +81,6 @@ class Activity implements SubscriptionInterface, \JsonSerializable
         $object->period = date_create('@0')->add($this->period)->getTimestamp();
         $object->activity = $this->activity;
         $object->visitor = $this->visitor;
-        $object->status = 'Available';
         return $object;
     }
 }

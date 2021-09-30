@@ -39,13 +39,12 @@ class OneTimeTest extends TestCase
                         "timezone": "Europe\/Berlin"
                     },
                     "period": 2678400,
-                    "activity": null,
                     "visitor": {
                         "id": null,
                         "name": "Sidor",
                         "surname": "Sidorov"
                     },
-                    "status": "Available"
+                    "status": "true"
                 }
             JSON,
             json_encode(self::oneTimeSubscription())

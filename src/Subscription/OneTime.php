@@ -26,7 +26,7 @@ class OneTime implements SubscriptionInterface, \JsonSerializable
         \DateTimeImmutable $startDay,
         \DateInterval $period,
         Core\Visitor $visitor,
-        string $status = 'Available'
+        bool $status = true
     ) {
         $this->startDay = $startDay;
         $this->period = $period;
@@ -56,7 +56,7 @@ class OneTime implements SubscriptionInterface, \JsonSerializable
      */
     public function assertValid(Core\Activity $activity): void
     {
-        if ($this->status !== 'Available') {
+        if ($this->status) {
             throw new SubscriptionIsForbidden('This subscription has already been used ');
         }
     }
@@ -79,7 +79,6 @@ class OneTime implements SubscriptionInterface, \JsonSerializable
         $object->type = get_class($this);
         $object->startDay = $this->startDay;
         $object->period = date_create('@0')->add($this->period)->getTimestamp();
-        $object->activity = null;
         $object->visitor = $this->visitor;
         $object->status = $this->status;
         return $object;

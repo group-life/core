@@ -34,7 +34,7 @@ class SubscriptionMapper
         if (!empty($data->id)) {
             throw new SavingToDbIsForbidden('Object is already in the database');
         }
-        if ($data->activity instanceof \stdClass) {
+        if (!empty($data->activity)) {
             if (empty($data->activity->id)) {
                 throw new SavingToDbIsForbidden('Activity object was not saved in the database');
             }
@@ -46,12 +46,12 @@ class SubscriptionMapper
             ->insert(
                 'subscription',
                 [
-                    'activity' => $data->activity instanceof \stdClass ? $data->activity->id : null,
+                    'activity' => empty($data->activity) ? null : $data->activity->id,
                     'visitor' => $data->visitor->id,
                     'type' => $data->type,
                     'time_from' => $data->startDay->date,
                     'period' => $data->period,
-                    'available' => $data->status === 'Available' ? 1 : 0
+                    'available' => $data->status ?? null,
                 ]
             );
         $subscription->persists((int)$this->connection->lastInsertId());
@@ -109,7 +109,7 @@ class SubscriptionMapper
                     $subscriptionTime,
                     $subscriptionPeriod,
                     $subscriptionVisitor,
-                    $data['available'] === '1' ? 'Available' : 'Not available'
+                    $data['available'] ?? false
                 );
                 $newSubscription->persists($id);
                 break;
