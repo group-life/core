@@ -35,10 +35,8 @@ class SubscriptionMapper
         if (!empty($data->id)) {
             throw new SavingToDbIsForbidden('Object is already in the database');
         }
-        if (!empty($data->activity)) {
-            if (empty($data->activity->id)) {
-                throw new SavingToDbIsForbidden('Activity object was not saved in the database');
-            }
+        if (!empty($data->activity) && empty($data->activity->id)) {
+            throw new SavingToDbIsForbidden('Activity object was not saved in the database');
         }
         if (empty($data->visitor->id)) {
             throw new SavingToDbIsForbidden('Visitor object was not saved in the database');

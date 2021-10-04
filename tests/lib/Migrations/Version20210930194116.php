@@ -19,8 +19,9 @@ final class Version20210930194116 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        $this->addSql('drop table subscription;');
         $this->addSql('
-            create table subscription_dg_tmp(
+            create table subscription(
                 id integer not null
                     constraint subscription_pk
                         primary key autoincrement,
@@ -35,19 +36,13 @@ final class Version20210930194116 extends AbstractMigration
                 period text not null,
                 available tinyint default 1 not null);
         ');
-         $this->addSql('
-            insert into subscription_dg_tmp(id, activity, visitor, type, time_from, period, available) 
-            select id, activity, visitor, type, time_from, period, available 
-            from subscription;
-        ');
-         $this->addSql('drop table subscription');
-         $this->addSql('alter table subscription_dg_tmp rename to subscription;');
     }
 
     public function down(Schema $schema): void
     {
+        $this->addSql('drop table subscription;');
         $this->addSql('
-            create table subscription_dg_tmp(
+            create table subscription(
                 id integer not null
                     constraint subscription_pk
                         primary key autoincrement,
@@ -62,12 +57,5 @@ final class Version20210930194116 extends AbstractMigration
                 period int not null,
                 available tinyint default 1 not null);
         ');
-        $this->addSql('
-            insert into subscription_dg_tmp(id, activity, visitor, type, time_from, period, available) 
-            select id, activity, visitor, type, time_from, period, available 
-            from subscription;
-        ');
-        $this->addSql('drop table subscription');
-        $this->addSql('alter table subscription_dg_tmp rename to subscription;');
     }
 }
