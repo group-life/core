@@ -22,6 +22,11 @@ class VisitMapper
         $this->connection = $connection;
     }
 
+    /**
+     * @param array $activityVisits
+     * @throws SavingToDbIsForbidden
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function insert(array $activityVisits)
     {
         foreach ($activityVisits as $visit) {
@@ -57,7 +62,33 @@ class VisitMapper
         }
     }
 
-    public function find()
-    {
+    /**
+     * @param int $id
+     * @param ActivityMapper $activityMapper
+     * @param VisitorMapper $visitorMapper
+     * @param SubscriptionMapper $subscriptionMapper
+     * @param LeaderMapper $leaderMapper
+     * @param ScheduleMapper $scheduleMapper
+     * @return Visit
+     * @throws \Doctrine\DBAL\Exception
+     * @throws \GroupLife\Core\Exception\LoadFromDbImpossible
+     */
+    public function find(
+        int $id,
+        ActivityMapper $activityMapper,
+        VisitorMapper $visitorMapper,
+        SubscriptionMapper $subscriptionMapper,
+        LeaderMapper $leaderMapper,
+        ScheduleMapper $scheduleMapper
+    ): Visit {
+        $data = $this->connection->fetchAssociative('SELECT * FROM visit WHERE id = ?', [$id]);
+        $time = new \DateTimeImmutable($data['time']);
+        $activity = $activityMapper->find((int)$data['activity_id'], $leaderMapper, $scheduleMapper);
+        $visitor = $visitorMapper->find((int)$data['visitor_id']);
+        $subscription = $subscriptionMapper->find((int)$data['subscription_id'], $visitorMapper, $activityMapper);
+
+        $visit = new Visit($time, $activity, $visitor, $subscription);
+        $visit->persists((int)$data['id']);
+        return $visit;
     }
 }
