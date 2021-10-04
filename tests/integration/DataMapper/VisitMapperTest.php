@@ -100,4 +100,37 @@ class VisitMapperTest extends TestCaseWithDb
             $scheduleMapper
         ));
     }
+
+    /**
+     * @throws \GroupLife\Core\Exception\LoadFromDbImpossible
+     * @throws \GroupLife\Core\Exception\WrongVisitStatus
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function testUpdate()
+    {
+        $scheduleMapper = new ScheduleMapper(self::$db);
+        $leaderMapper = new LeaderMapper(self::$db);
+        $visitorMapper = new VisitorMapper(self::$db);
+        $activityMapper = new ActivityMapper(self::$db);
+        $subscriptionMapper = new SubscriptionMapper(self::$db);
+        $visitMapper = new VisitMapper(self::$db);
+        $visit = $visitMapper->find(
+            1,
+            $activityMapper,
+            $visitorMapper,
+            $subscriptionMapper,
+            $leaderMapper,
+            $scheduleMapper
+        );
+        self::assertEquals('planned', getDataObject($visit)->status);
+        $visit->changeStatus('confirmed');
+        $visitMapper->update($visit);
+        self::assertEquals(
+            ['status' => 'confirmed'],
+            self::$db->fetchAssociative('select status from visit where id = 1')
+        );
+        $visit->changeStatus('planned');
+        $visitMapper->update($visit);
+        self::assertEquals('planned', (self::$db->fetchAssociative('select status from visit where id = 1'))['status']);
+    }
 }

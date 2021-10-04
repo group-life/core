@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GroupLife\Core\Activity;
 
 use GroupLife\Core\Activity;
+use GroupLife\Core\Exception\WrongVisitStatus;
 use GroupLife\Core\Subscription\SubscriptionInterface;
 use GroupLife\Core\Visitor;
 
@@ -56,5 +57,26 @@ class Visit implements \JsonSerializable
     public function persists(int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @param string $status
+     * @throws WrongVisitStatus
+     */
+    public function changeStatus(string $status): void
+    {
+        switch ($status) {
+            case ('planned'):
+                $this->status = 'planned';
+                break;
+            case ('confirmed'):
+                $this->status = 'confirmed';
+                break;
+            case ('visited'):
+                $this->status = 'visited';
+                break;
+            default:
+                throw new WrongVisitStatus('The visit status cannot be updated');
+        }
     }
 }

@@ -81,14 +81,34 @@ class VisitMapper
         LeaderMapper $leaderMapper,
         ScheduleMapper $scheduleMapper
     ): Visit {
+
         $data = $this->connection->fetchAssociative('SELECT * FROM visit WHERE id = ?', [$id]);
+
         $time = new \DateTimeImmutable($data['time']);
         $activity = $activityMapper->find((int)$data['activity_id'], $leaderMapper, $scheduleMapper);
         $visitor = $visitorMapper->find((int)$data['visitor_id']);
         $subscription = $subscriptionMapper->find((int)$data['subscription_id'], $visitorMapper, $activityMapper);
 
         $visit = new Visit($time, $activity, $visitor, $subscription);
+        $visit->changeStatus($data['status']);
         $visit->persists((int)$data['id']);
+
         return $visit;
+    }
+
+    public function update(Visit $visit)
+    {
+        $data = getDataObject($visit);
+        $this->connection->update(
+            'visit',
+            [
+                'activity_id' => $data->activity->id,
+                'visitor_id' => $data->visitor->id,
+                'subscription_id' => $data->subscription->id,
+                'time' => $data->time->date,
+                'status' => $data->status
+            ],
+            ['id' => $data->id]
+        );
     }
 }
