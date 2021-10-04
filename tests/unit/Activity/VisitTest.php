@@ -22,6 +22,7 @@ class VisitTest extends TestCase
     {
         self::assertJsonStringEqualsJsonString(<<<'JSON'
     {
+    "id": null,
     "time": {
         "date": "2021-01-01 10:00:00.000000",
         "timezone_type": 3,

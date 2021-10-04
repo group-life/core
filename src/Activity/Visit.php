@@ -9,6 +9,7 @@ use GroupLife\Core\Visitor;
 
 class Visit implements \JsonSerializable
 {
+    private $id;
     private $time;
     private $status;
     private $activity;
@@ -27,13 +28,25 @@ class Visit implements \JsonSerializable
         $this->visitor = $visitor;
     }
 
+    /**
+     * @return \stdClass
+     */
     public function jsonSerialize(): \stdClass
     {
         $data = new \stdClass();
+        $data->id = $this->id;
         $data->time = $this->time;
         $data->status = $this->status;
         $data->activity = $this->activity;
         $data->visitor = $this->visitor;
         return $data;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
     }
 }
