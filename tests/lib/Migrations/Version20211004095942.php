@@ -24,12 +24,15 @@ final class Version20211004095942 extends AbstractMigration
                 id integer not null
                     constraint visit_pk
                         primary key autoincrement,
-                activity int not null
+                activity_id int not null
                     constraint visit_activity_id_fk
                         references activity,
-                visitor int not null
+                visitor_id int not null
                     constraint visit_visitor_id_fk
                         references visitor,
+                subscription_id int not null
+                    constraint visit_subscription_id_fk
+                        references subscription,        
                 time datetime not null,
                 status text not null)
         ');

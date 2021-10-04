@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GroupLife\Core\Activity;
 
 use GroupLife\Core\Activity;
+use GroupLife\Core\Subscription\SubscriptionInterface;
 use GroupLife\Core\Visitor;
 
 class Visit implements \JsonSerializable
@@ -14,18 +15,24 @@ class Visit implements \JsonSerializable
     private $status;
     private $activity;
     private $visitor;
+    private $subscription;
 
     /**
      * @param \DateTimeImmutable $time date and time of a visit
      * @param Activity $activity what activity to be visit
      * @param Visitor $visitor who will visit
      */
-    public function __construct(\DateTimeImmutable $time, Activity $activity, Visitor $visitor)
-    {
+    public function __construct(
+        \DateTimeImmutable $time,
+        Activity $activity,
+        Visitor $visitor,
+        SubscriptionInterface $subscription
+    ) {
         $this->time = $time;
         $this->activity = $activity;
         $this->status = 'planned';
         $this->visitor = $visitor;
+        $this->subscription = $subscription;
     }
 
     /**
@@ -39,6 +46,7 @@ class Visit implements \JsonSerializable
         $data->status = $this->status;
         $data->activity = $this->activity;
         $data->visitor = $this->visitor;
+        $data->subscription = $this->subscription;
         return $data;
     }
 
