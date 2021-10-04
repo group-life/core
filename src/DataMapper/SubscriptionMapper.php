@@ -45,8 +45,8 @@ class SubscriptionMapper
             ->insert(
                 'subscription',
                 [
-                    'activity' => empty($data->activity) ? null : $data->activity->id,
-                    'visitor' => $data->visitor->id,
+                    'activity_id' => empty($data->activity) ? null : $data->activity->id,
+                    'visitor_id' => $data->visitor->id,
                     'type' => $data->type,
                     'time_from' => $data->startDay->date,
                     'period' => $data->period,
@@ -74,7 +74,7 @@ class SubscriptionMapper
         $subscriptionType = $data['type'];
         $subscriptionTime = new \DateTimeImmutable($data['time_from']);
         $subscriptionPeriod = new \DateInterval($data['period']);
-        $subscriptionVisitor = $visitorMapper->find((int)$data['visitor']);
+        $subscriptionVisitor = $visitorMapper->find((int)$data['visitor_id']);
 
         switch ($subscriptionType) {
             case 'GroupLife\Core\Subscription\Activity':
@@ -82,7 +82,7 @@ class SubscriptionMapper
                     $subscriptionTime,
                     $subscriptionPeriod,
                     $activityMapper->find(
-                        (int)$data['activity'],
+                        (int)$data['activity_id'],
                         new LeaderMapper($this->connection),
                         new ScheduleMapper($this->connection)
                     ),
