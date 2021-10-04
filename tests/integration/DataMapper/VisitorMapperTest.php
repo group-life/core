@@ -16,15 +16,14 @@ class VisitorMapperTest extends TestCaseWithDb
         $visitor = new Visitor('Petr', 'Petrov');
         $mapper = new VisitorMapper(self::$db);
         $mapper->insert($visitor);
+        $visitorId = getDataObject($visitor)->id;
         self::assertEquals(
             [
-                [
-                    'id' => '1',
-                    'name' => 'Petr',
-                    'surname' => 'Petrov'
-                ]
+                'id' => (string)$visitorId,
+                'name' => 'Petr',
+                'surname' => 'Petrov'
             ],
-            self::$db->fetchAllAssociative('SELECT * FROM `Visitor` WHERE id = 1')
+            self::$db->fetchAssociative("SELECT * FROM `Visitor` WHERE id = ?", [$visitorId])
         );
     }
 

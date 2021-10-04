@@ -9,19 +9,22 @@ use GroupLife\Core;
 /**
  * Membership subscription allows to visit any activity
  */
-class Membership implements SubscriptionInterface
+class Membership implements SubscriptionInterface, \JsonSerializable
 {
+    private $id;
     private $startDay;
     private $period;
+    private $visitor;
 
     /**
      * @param \DateTimeImmutable $startDay first day of a subscription
      * @param \DateInterval $period period of validity
      */
-    public function __construct(\DateTimeImmutable $startDay, \DateInterval $period)
+    public function __construct(\DateTimeImmutable $startDay, \DateInterval $period, Core\Visitor $visitor)
     {
         $this->startDay = $startDay;
         $this->period = $period;
+        $this->visitor = $visitor;
     }
 
     /**
@@ -45,5 +48,27 @@ class Membership implements SubscriptionInterface
      */
     public function assertValid(Core\Activity $activity): void
     {
+    }
+
+    /**
+     * @param int $id
+     */
+    public function persists(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return \stdClass
+     */
+    public function jsonSerialize(): \stdClass
+    {
+        $object = new \stdClass();
+        $object->id = $this->id;
+        $object->type = get_class($this);
+        $object->startDay = $this->startDay;
+        $object->period = $this->period->format('P%yY%mM%dDT%hH%iM%sS');
+        $object->visitor = $this->visitor;
+        return $object;
     }
 }

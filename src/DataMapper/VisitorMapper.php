@@ -31,6 +31,8 @@ class VisitorMapper
     public function find(int $id): Visitor
     {
         $data = $this->connection->fetchAssociative('SELECT * FROM visitor WHERE id = ?', [$id]);
-        return new Visitor($data['name'], $data['surname']);
+        $visitor = new Visitor($data['name'], $data['surname']);
+        $visitor->persists($id);
+        return $visitor;
     }
 }

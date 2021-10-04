@@ -28,10 +28,10 @@ class ActivityMapper
             throw new SavingToDbIsForbidden('Object is already in the database');
         }
         if (empty($data->schedule->id)) {
-            throw new SavingToDbIsForbidden('Schedule Object was not saved in the database');
+            throw new SavingToDbIsForbidden('Schedule object was not saved in the database');
         }
         if (empty($data->leader->id)) {
-            throw new SavingToDbIsForbidden('Leader Object was not saved in the database');
+            throw new SavingToDbIsForbidden('Leader object was not saved in the database');
         }
 
         $this->connection->insert(
