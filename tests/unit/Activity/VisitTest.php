@@ -20,7 +20,39 @@ class VisitTest extends TestCase
 
     public function testJsonSerialize()
     {
-        $object = new \stdClass();
+        self::assertJsonStringEqualsJsonString(<<<'JSON'
+    {
+    "time": {
+        "date": "2021-01-01 10:00:00.000000",
+        "timezone_type": 3,
+        "timezone": "Europe\/Berlin"
+    },
+    "status": "planned",
+    "activity": {
+        "id": null,
+        "name": "Swimming",
+        "schedule": {
+            "id": null,
+            "rules": [
+                {
+                    "type": "GroupLife\\Core\\Schedule\\DayRule",
+"data": "{\"dateTime\":{\"date\":\"2021-01-01 10:00:00.000000\",\"timezone_type\":3,\"timezone\":\"Europe\\\/Berlin\"}}"
+                }
+            ]
+        },
+        "leader": {
+            "id": null,
+            "name": "Ivan",
+            "surname": "Ivanov"
+        }
+    },
+    "visitor": {
+        "id": null,
+        "name": "Ivan",
+        "surname": "Pupkin"
+    }
+}
+JSON, json_encode(self::visit()));
     }
 
     public static function visit(): Visit
