@@ -29,7 +29,7 @@ final class Version20210930194116 extends AbstractMigration
                     constraint subscription_activity_id_fk
                         references activity,
                 visitor int not null
-                    constraint subscription_visitor_id_pk
+                    constraint subscription_visitor_id_fk
                         references visitor,
                 type text not null,
                 time_from datetime not null,
@@ -50,7 +50,7 @@ final class Version20210930194116 extends AbstractMigration
                     constraint subscription_activity_id_fk
                         references activity,
                 visitor int not null
-                    constraint subscription_visitor_id_pk
+                    constraint subscription_visitor_id_fk
                         references visitor,
                 type text not null,
                 time_from datetime not null,
