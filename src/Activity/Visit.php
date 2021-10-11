@@ -25,7 +25,7 @@ class Visit implements \JsonSerializable
     public function __construct(
         \DateTimeImmutable $time,
         Activity $activity,
-        Visitor $visitor,
+        Visitor $visitor
     ) {
         $this->time = $time;
         $this->activity = $activity;
