@@ -6,13 +6,9 @@ namespace GroupLife\Core\tests\DataMapper;
 
 use GroupLife\Core\Activity;
 use GroupLife\Core\DataMapper\ActivityMapper;
-use GroupLife\Core\DataMapper\LeaderMapper;
-use GroupLife\Core\DataMapper\ScheduleMapper;
-use GroupLife\Core\Leader;
-use GroupLife\Core\Schedule;
-use GroupLife\Core\Test\TestCaseWithDb;
+use GroupLife\Core\Test\TestCaseWithCoreClasses;
 
-class ActivityMapperTest extends TestCaseWithDb
+class ActivityMapperTest extends TestCaseWithCoreClasses
 {
     /**
      * @throws \Doctrine\DBAL\Exception
@@ -20,19 +16,10 @@ class ActivityMapperTest extends TestCaseWithDb
      */
     public function testInsert()
     {
-        $leader = new Leader('Petr', 'Petrov');
-        $schedule = new Schedule([
-            new Schedule\WeekdayRule('Monday', '10:00'),
-            new Schedule\CancelDayRule('2021-01-11', '10:00'),
-            new Schedule\CancelDayRule('2021-01-25', '10:00'),
-        ]);
-        $leaderMapper = new LeaderMapper(self::$db);
-        $scheduleMapper = new ScheduleMapper(self::$db);
-        $leaderMapper->insert($leader);
-        $scheduleMapper->insert($schedule);
-        $activity = new Activity('Chess', $schedule, $leader);
+        $this->leaderMapper->insert($this->leader);
+        $this->scheduleMapper->insert($this->schedule);
         $mapper = new ActivityMapper(self::$db);
-        $mapper->insert($activity);
+        $mapper->insert($this->activity);
         $sqlQuery = '
             select
                    a.id as activity_id,
@@ -50,14 +37,14 @@ class ActivityMapperTest extends TestCaseWithDb
         ';
         self::assertEquals(
             [
-                'activity_id' => (string)getDataObject($activity)->id,
-                'activity_name' => 'Chess',
-                'teacher_name' => 'Petr',
-                'teacher_surname' => 'Petrov',
+                'activity_id' => (string)getDataObject($this->activity)->id,
+                'activity_name' => 'Skiing',
+                'teacher_name' => 'Ivan',
+                'teacher_surname' => 'Teacher',
                 'schedule_type' => '3',
                 'schedule_rules' => '3'
             ],
-            self::$db->fetchAssociative($sqlQuery, [getDataObject($activity)->id])
+            self::$db->fetchAssociative($sqlQuery, [getDataObject($this->activity)->id])
         );
     }
 
@@ -68,7 +55,7 @@ class ActivityMapperTest extends TestCaseWithDb
     {
         $mapper = new ActivityMapper(self::$db);
         $id = 1;
-        $newActivity = $mapper->find($id, new LeaderMapper(self::$db), new ScheduleMapper(self::$db));
+        $newActivity = $mapper->find($id, $this->leaderMapper, $this->scheduleMapper);
         self::assertInstanceOf(Activity::class, $newActivity);
         self::assertEquals($id, getDataObject($newActivity)->id);
     }

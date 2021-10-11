@@ -1,75 +1,46 @@
 <?php
 
+declare(strict_types=1);
+
 namespace GroupLife\Core\tests\DataMapper;
 
 use GroupLife\Core\Activity;
-use GroupLife\Core\DataMapper\ActivityMapper;
-use GroupLife\Core\DataMapper\LeaderMapper;
-use GroupLife\Core\DataMapper\ScheduleMapper;
-use GroupLife\Core\DataMapper\SubscriptionMapper;
-use GroupLife\Core\DataMapper\VisitMapper;
-use GroupLife\Core\DataMapper\VisitorMapper;
-use GroupLife\Core\Leader;
-use GroupLife\Core\Schedule;
-use GroupLife\Core\Subscription\Membership;
-use GroupLife\Core\Test\TestCaseWithDb;
-use GroupLife\Core\Visitor;
+use GroupLife\Core\Test\TestCaseWithCoreClasses;
 
-class VisitMapperTest extends TestCaseWithDb
+class VisitMapperTest extends TestCaseWithCoreClasses
 {
-
     /**
      * @throws \Doctrine\DBAL\Exception
      * @throws \GroupLife\Core\Exception\SavingToDbIsForbidden
      */
     public function testInsert()
     {
-
-        $schedule = new Schedule(
-            [
-                new Schedule\WeekdayRule('Monday', '10:00'),
-                new Schedule\CancelDayRule('2021-01-11', '10:00'),
-                new Schedule\CancelDayRule('2021-01-25', '10:00')
-            ]
-        );
-        $leader = new Leader('Ivan', 'Teacher');
-        $activity = new Activity('Skiing', $schedule, $leader);
-        $visitor = new Visitor('Petr', 'Student');
-        $subscription = new Membership(new \DateTimeImmutable('2021-01-01'), new \DateInterval('P1M'), $visitor);
-        $activityVisits = $activity->subscribe($visitor, $subscription);
-
-        $scheduleMapper = new ScheduleMapper(self::$db);
-        $leaderMapper = new LeaderMapper(self::$db);
-        $visitorMapper = new VisitorMapper(self::$db);
-        $activityMapper = new ActivityMapper(self::$db);
-        $subscriptionMapper = new SubscriptionMapper(self::$db);
-        $visitMapper = new VisitMapper(self::$db);
-
-        $scheduleMapper->insert($schedule);
-        $leaderMapper->insert($leader);
-        $visitorMapper->insert($visitor);
-        $activityMapper->insert($activity);
-        $subscriptionMapper->insert($subscription);
-        $visitMapper->insert($activityVisits);
+        $visits = $this->activity->subscribe($this->visitor, $this->subscription);
+        $this->scheduleMapper->insert($this->schedule);
+        $this->leaderMapper->insert($this->leader);
+        $this->visitorMapper->insert($this->visitor);
+        $this->activityMapper->insert($this->activity);
+        $this->subscriptionMapper->insert($this->subscription);
+        $this->visitMapper->insert($visits);
         $data = self::$db->fetchAllAssociative(
             'select * from visit where visitor_id = ?',
-            [getDataObject($visitor)->id]
+            [getDataObject($this->visitor)->id]
         );
         self::assertEquals(
             [
                 [
-                    'id' => getDataObject($activityVisits[0])->id,
-                    'activity_id' => getDataObject($activity)->id,
-                    'visitor_id' => getDataObject($visitor)->id,
-                    'time' => getDataObject($activityVisits[0])->time->date,
-                    'status' => getDataObject($activityVisits[0])->status,
+                    'id' => getDataObject($visits[0])->id,
+                    'activity_id' => getDataObject($this->activity)->id,
+                    'visitor_id' => getDataObject($this->visitor)->id,
+                    'time' => getDataObject($visits[0])->time->date,
+                    'status' => getDataObject($visits[0])->status,
                 ],
                 [
-                    'id' => getDataObject($activityVisits[1])->id,
-                    'activity_id' => getDataObject($activity)->id,
-                    'visitor_id' => getDataObject($visitor)->id,
-                    'time' => getDataObject($activityVisits[1])->time->date,
-                    'status' => getDataObject($activityVisits[1])->status,
+                    'id' => getDataObject($visits[1])->id,
+                    'activity_id' => getDataObject($this->activity)->id,
+                    'visitor_id' => getDataObject($this->visitor)->id,
+                    'time' => getDataObject($visits[1])->time->date,
+                    'status' => getDataObject($visits[1])->status,
                 ]
             ],
             $data
@@ -82,18 +53,12 @@ class VisitMapperTest extends TestCaseWithDb
      */
     public function testFind()
     {
-        $scheduleMapper = new ScheduleMapper(self::$db);
-        $leaderMapper = new LeaderMapper(self::$db);
-        $visitorMapper = new VisitorMapper(self::$db);
-        $activityMapper = new ActivityMapper(self::$db);
-        $visitMapper = new VisitMapper(self::$db);
-
-        self::assertInstanceOf(Activity\Visit::class, $visitMapper->find(
+        self::assertInstanceOf(Activity\Visit::class, $this->visitMapper->find(
             1,
-            $activityMapper,
-            $visitorMapper,
-            $leaderMapper,
-            $scheduleMapper
+            $this->activityMapper,
+            $this->visitorMapper,
+            $this->leaderMapper,
+            $this->scheduleMapper
         ));
     }
 
@@ -104,27 +69,22 @@ class VisitMapperTest extends TestCaseWithDb
      */
     public function testUpdate()
     {
-        $scheduleMapper = new ScheduleMapper(self::$db);
-        $leaderMapper = new LeaderMapper(self::$db);
-        $visitorMapper = new VisitorMapper(self::$db);
-        $activityMapper = new ActivityMapper(self::$db);
-        $visitMapper = new VisitMapper(self::$db);
-        $visit = $visitMapper->find(
+        $visit = $this->visitMapper->find(
             1,
-            $activityMapper,
-            $visitorMapper,
-            $leaderMapper,
-            $scheduleMapper
+            $this->activityMapper,
+            $this->visitorMapper,
+            $this->leaderMapper,
+            $this->scheduleMapper
         );
         self::assertEquals('planned', getDataObject($visit)->status);
         $visit->changeStatus('confirmed');
-        $visitMapper->update($visit);
+        $this->visitMapper->update($visit);
         self::assertEquals(
             ['status' => 'confirmed'],
             self::$db->fetchAssociative('select status from visit where id = 1')
         );
         $visit->changeStatus('planned');
-        $visitMapper->update($visit);
+        $this->visitMapper->update($visit);
         self::assertEquals('planned', (self::$db->fetchAssociative('select status from visit where id = 1'))['status']);
     }
 }
