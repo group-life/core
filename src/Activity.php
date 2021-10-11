@@ -43,7 +43,7 @@ class Activity implements \JsonSerializable
 
         $subscription->assertValid($this);
         foreach ($this->schedule->materialize($subscription->getStartDay(), $subscription->getPeriod()) as $day) {
-            $activityVisits[] = new Visit($day, $this, $visitor, $subscription);
+            $activityVisits[] = new Visit($day, $this, $visitor);
         }
         return $activityVisits;
     }

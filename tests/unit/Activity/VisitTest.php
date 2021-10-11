@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace GroupLife\Core\tests\Activity;
 
 use GroupLife\Core\Activity;
-use GroupLife\Core\DataMapper\SubscriptionMapper;
 use GroupLife\Core\Leader;
 use GroupLife\Core\Schedule;
 use GroupLife\Core\Subscription\Membership;
@@ -70,7 +69,6 @@ JSON, json_encode(self::visit()));
             new \DateTimeImmutable('2021-01-01 10:00'),
             new Activity('Swimming', $schedule, $leader),
             new Visitor('Ivan', 'Pupkin'),
-            $subscription
         );
     }
 }
