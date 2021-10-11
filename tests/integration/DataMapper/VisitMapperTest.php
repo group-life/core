@@ -52,8 +52,8 @@ class VisitMapperTest extends TestCaseWithDb
         $subscriptionMapper->insert($subscription);
         $visitMapper->insert($activityVisits);
         $data = self::$db->fetchAllAssociative(
-            'select * from visit where subscription_id = ?',
-            [getDataObject($subscription)->id]
+            'select * from visit where visitor_id = ?',
+            [getDataObject($visitor)->id]
         );
         self::assertEquals(
             [
@@ -61,7 +61,6 @@ class VisitMapperTest extends TestCaseWithDb
                     'id' => getDataObject($activityVisits[0])->id,
                     'activity_id' => getDataObject($activity)->id,
                     'visitor_id' => getDataObject($visitor)->id,
-                    'subscription_id' => getDataObject($subscription)->id,
                     'time' => getDataObject($activityVisits[0])->time->date,
                     'status' => getDataObject($activityVisits[0])->status,
                 ],
@@ -69,7 +68,6 @@ class VisitMapperTest extends TestCaseWithDb
                     'id' => getDataObject($activityVisits[1])->id,
                     'activity_id' => getDataObject($activity)->id,
                     'visitor_id' => getDataObject($visitor)->id,
-                    'subscription_id' => getDataObject($subscription)->id,
                     'time' => getDataObject($activityVisits[1])->time->date,
                     'status' => getDataObject($activityVisits[1])->status,
                 ]
@@ -88,14 +86,12 @@ class VisitMapperTest extends TestCaseWithDb
         $leaderMapper = new LeaderMapper(self::$db);
         $visitorMapper = new VisitorMapper(self::$db);
         $activityMapper = new ActivityMapper(self::$db);
-        $subscriptionMapper = new SubscriptionMapper(self::$db);
         $visitMapper = new VisitMapper(self::$db);
 
         self::assertInstanceOf(Activity\Visit::class, $visitMapper->find(
             1,
             $activityMapper,
             $visitorMapper,
-            $subscriptionMapper,
             $leaderMapper,
             $scheduleMapper
         ));
@@ -112,13 +108,11 @@ class VisitMapperTest extends TestCaseWithDb
         $leaderMapper = new LeaderMapper(self::$db);
         $visitorMapper = new VisitorMapper(self::$db);
         $activityMapper = new ActivityMapper(self::$db);
-        $subscriptionMapper = new SubscriptionMapper(self::$db);
         $visitMapper = new VisitMapper(self::$db);
         $visit = $visitMapper->find(
             1,
             $activityMapper,
             $visitorMapper,
-            $subscriptionMapper,
             $leaderMapper,
             $scheduleMapper
         );

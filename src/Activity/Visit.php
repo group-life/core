@@ -16,7 +16,6 @@ class Visit implements \JsonSerializable
     private $status;
     private $activity;
     private $visitor;
-    private $subscription;
 
     /**
      * @param \DateTimeImmutable $time date and time of a visit
@@ -27,13 +26,11 @@ class Visit implements \JsonSerializable
         \DateTimeImmutable $time,
         Activity $activity,
         Visitor $visitor,
-        SubscriptionInterface $subscription
     ) {
         $this->time = $time;
         $this->activity = $activity;
         $this->status = 'planned';
         $this->visitor = $visitor;
-        $this->subscription = $subscription;
     }
 
     /**
@@ -47,7 +44,6 @@ class Visit implements \JsonSerializable
         $data->status = $this->status;
         $data->activity = $this->activity;
         $data->visitor = $this->visitor;
-        $data->subscription = $this->subscription;
         return $data;
     }
 

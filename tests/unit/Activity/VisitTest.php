@@ -31,21 +31,6 @@ class VisitTest extends TestCase
         "timezone": "Europe\/Berlin"
     },
     "status": "planned",
-    "subscription": {
-        "id": null,
-        "period": "P0Y1M0DT0H0M0S",
-        "startDay": {
-            "date": "2021-01-01 00:00:00.000000",
-            "timezone": "Europe/Berlin",
-            "timezone_type": 3
-        },
-        "type": "GroupLife\\Core\\Subscription\\Membership",
-        "visitor": {
-            "id": null,
-            "name": "Stapan",
-            "surname": "Petrov"
-        }
-    },
     "activity": {
         "id": null,
         "name": "Swimming",

@@ -43,9 +43,6 @@ class VisitMapper
             if (empty($data->visitor->id)) {
                 throw new SavingToDbIsForbidden('Visitor object was not saved in the database');
             }
-            if (empty($data->subscription->id)) {
-                throw new SavingToDbIsForbidden('Subscription object was not saved in the database');
-            }
 
             $this->connection
                 ->insert(
@@ -55,7 +52,6 @@ class VisitMapper
                         'visitor_id' => $data->visitor->id,
                         'time' => $data->time->date,
                         'status' => $data->status,
-                        'subscription_id' => $data->subscription->id
                     ]
                 );
             $visit->persists((int)$this->connection->lastInsertId());
@@ -66,7 +62,6 @@ class VisitMapper
      * @param int $id
      * @param ActivityMapper $activityMapper
      * @param VisitorMapper $visitorMapper
-     * @param SubscriptionMapper $subscriptionMapper
      * @param LeaderMapper $leaderMapper
      * @param ScheduleMapper $scheduleMapper
      * @return Visit
@@ -77,7 +72,6 @@ class VisitMapper
         int $id,
         ActivityMapper $activityMapper,
         VisitorMapper $visitorMapper,
-        SubscriptionMapper $subscriptionMapper,
         LeaderMapper $leaderMapper,
         ScheduleMapper $scheduleMapper
     ): Visit {
@@ -87,9 +81,8 @@ class VisitMapper
         $time = new \DateTimeImmutable($data['time']);
         $activity = $activityMapper->find((int)$data['activity_id'], $leaderMapper, $scheduleMapper);
         $visitor = $visitorMapper->find((int)$data['visitor_id']);
-        $subscription = $subscriptionMapper->find((int)$data['subscription_id'], $visitorMapper, $activityMapper);
 
-        $visit = new Visit($time, $activity, $visitor, $subscription);
+        $visit = new Visit($time, $activity, $visitor);
         $visit->changeStatus($data['status']);
         $visit->persists((int)$data['id']);
 
@@ -104,7 +97,6 @@ class VisitMapper
             [
                 'activity_id' => $data->activity->id,
                 'visitor_id' => $data->visitor->id,
-                'subscription_id' => $data->subscription->id,
                 'time' => $data->time->date,
                 'status' => $data->status
             ],
