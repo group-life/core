@@ -43,14 +43,13 @@ class VisitMapper
             if (empty($data->visitor->id)) {
                 throw new SavingToDbIsForbidden('Visitor object was not saved in the database');
             }
-
             $this->connection
                 ->insert(
                     'visit',
                     [
                         'activity_id' => $data->activity->id,
                         'visitor_id' => $data->visitor->id,
-                        'time' => $data->time->date,
+                        'time' => json_encode($data->time),
                         'status' => $data->status,
                     ]
                 );
@@ -77,8 +76,8 @@ class VisitMapper
     ): Visit {
 
         $data = $this->connection->fetchAssociative('SELECT * FROM visit WHERE id = ?', [$id]);
-
-        $time = new \DateTimeImmutable($data['time']);
+        $rawTime = json_decode($data['time']);
+        $time = new \DateTimeImmutable($rawTime->date);
         $activity = $activityMapper->find((int)$data['activity_id'], $leaderMapper, $scheduleMapper);
         $visitor = $visitorMapper->find((int)$data['visitor_id']);
 
@@ -97,7 +96,7 @@ class VisitMapper
             [
                 'activity_id' => $data->activity->id,
                 'visitor_id' => $data->visitor->id,
-                'time' => $data->time->date,
+                'time' => json_encode($data->time),
                 'status' => $data->status
             ],
             ['id' => $data->id]

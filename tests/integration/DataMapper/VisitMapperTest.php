@@ -32,14 +32,14 @@ class VisitMapperTest extends TestCaseWithCoreClasses
                     'id' => getDataObject($visits[0])->id,
                     'activity_id' => getDataObject($this->activity)->id,
                     'visitor_id' => getDataObject($this->visitor)->id,
-                    'time' => getDataObject($visits[0])->time->date,
+                    'time' => json_encode(getDataObject($visits[0])->time),
                     'status' => getDataObject($visits[0])->status,
                 ],
                 [
                     'id' => getDataObject($visits[1])->id,
                     'activity_id' => getDataObject($this->activity)->id,
                     'visitor_id' => getDataObject($this->visitor)->id,
-                    'time' => getDataObject($visits[1])->time->date,
+                    'time' => json_encode(getDataObject($visits[1])->time),
                     'status' => getDataObject($visits[1])->status,
                 ]
             ],
