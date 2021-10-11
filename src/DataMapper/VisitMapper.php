@@ -65,7 +65,7 @@ class VisitMapper
      * @param ScheduleMapper $scheduleMapper
      * @return Visit
      * @throws \Doctrine\DBAL\Exception
-     * @throws \GroupLife\Core\Exception\LoadFromDbImpossible
+     * @throws \GroupLife\Core\Exception\WrongVisitStatus
      */
     public function find(
         int $id,
@@ -88,6 +88,10 @@ class VisitMapper
         return $visit;
     }
 
+    /**
+     * @param Visit $visit
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function update(Visit $visit)
     {
         $data = getDataObject($visit);

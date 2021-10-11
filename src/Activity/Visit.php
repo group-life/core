@@ -18,9 +18,9 @@ class Visit implements \JsonSerializable
     private $visitor;
 
     /**
-     * @param \DateTimeImmutable $time date and time of a visit
-     * @param Activity $activity what activity to be visit
-     * @param Visitor $visitor who will visit
+     * @param \DateTimeImmutable $time
+     * @param Activity $activity
+     * @param Visitor $visitor
      */
     public function __construct(
         \DateTimeImmutable $time,
