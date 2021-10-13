@@ -10,11 +10,11 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210930194116 extends AbstractMigration
+final class Version20211004203708 extends AbstractMigration
 {
     public function getDescription(): string
     {
-        return 'Alter subscription table';
+        return 'Alter columns activity and visitor in subscription table';
     }
 
     public function up(Schema $schema): void
@@ -25,10 +25,10 @@ final class Version20210930194116 extends AbstractMigration
                 id integer not null
                     constraint subscription_pk
                         primary key autoincrement,
-                activity int default null
+                activity_id int default null
                     constraint subscription_activity_id_fk
                         references activity,
-                visitor int not null
+                visitor_id int not null
                     constraint subscription_visitor_id_fk
                         references visitor,
                 type text not null,
@@ -54,7 +54,7 @@ final class Version20210930194116 extends AbstractMigration
                         references visitor,
                 type text not null,
                 time_from datetime not null,
-                period int not null,
+                period text not null,
                 available tinyint default 1 not null);
         ');
     }

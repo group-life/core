@@ -42,8 +42,8 @@ class SubscriptionMapperTest extends TestCaseWithDb
         self::assertEquals(
             [
                 'id' => $data->id,
-                'activity' => $data->activity->id,
-                'visitor' => $data->visitor->id,
+                'activity_id' => $data->activity->id,
+                'visitor_id' => $data->visitor->id,
                 'type' => $data->type,
                 'time_from' => $data->startDay->date,
                 'period' => $data->period,
