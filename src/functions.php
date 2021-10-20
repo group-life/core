@@ -19,3 +19,11 @@ function getDataArray(object $obj): array
 {
     return json_decode(json_encode($obj), true);
 }
+
+/**
+ * @return string
+ */
+function getMigrationsPath(): string
+{
+    return __DIR__ . '\..\tests\lib\Migrations';
+}
