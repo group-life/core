@@ -8,6 +8,6 @@ class GlobalFunctionsTest extends TestCase
 {
     public function testGetMigrationsPath()
     {
-        self::assertFileExists(getMigrationsPath() . '/Version20210913225128.php');
+        self::assertFileExists(getMigrationsPath() . 'Version20210913225128.php');
     }
 }
