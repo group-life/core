@@ -25,5 +25,5 @@ function getDataArray(object $obj): array
  */
 function getMigrationsPath(): string
 {
-    return __DIR__ . '\..\tests\lib\Migrations';
+    return realpath(__DIR__ . '/../tests/lib/Migrations/') . DIRECTORY_SEPARATOR;
 }
