@@ -33,11 +33,11 @@ class Leader implements \JsonSerializable
     }
 
     /**
-     * @return string
+     * @param string $surname
      */
-    public function getSurname(): string
+    public function setSurname(string $surname): void
     {
-        return $this->surname;
+        $this->surname = $surname;
     }
 
     /**
