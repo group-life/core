@@ -38,4 +38,34 @@ class LeaderMapperTest extends TestCaseWithDb
         $newLeader = $mapper->find(1);
         self::assertInstanceOf(Leader::class, $newLeader);
     }
+
+    /**
+     * @param $leader
+     */
+    public function testUpdate()
+    {
+        $mapper = new LeaderMapper(self::$db);
+        $newLeader = $mapper->find(1);
+        $newLeader->setName('Vasiliy');
+        $newLeader->setSurname('Chapaev');
+        $mapper->update($newLeader);
+        self::assertEquals(
+            [
+                'id' => '1',
+                'name' => 'Vasiliy',
+                'surname' => 'Chapaev'
+            ],
+            self::$db->fetchAssociative('SELECT * FROM `leader` WHERE id = 1')
+        );
+    }
+
+    public function testDelete()
+    {
+        $mapper = new LeaderMapper(self::$db);
+        $newLeader = $mapper->delete(1);
+        self::assertEquals(
+            [],
+            self::$db->fetchAssociative('SELECT * FROM `leader` WHERE id = 1')
+        );
+    }
 }
