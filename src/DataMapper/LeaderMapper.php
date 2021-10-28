@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GroupLife\Core\DataMapper;
 
+use GroupLife\Core\Exception\SavingToDbIsForbidden;
 use GroupLife\Core\Leader;
 
 class LeaderMapper
@@ -39,10 +40,14 @@ class LeaderMapper
     /**
      * @param Leader $leader
      * @throws \Doctrine\DBAL\Exception
+     * @throws SavingToDbIsForbidden
      */
     public function update(Leader $leader)
     {
         $data = getDataObject($leader);
+        if (empty($data->id)) {
+            throw new SavingToDbIsForbidden();
+        }
         $this->connection->update('leader', ['name' => $data->name, 'surname' => $data->surname], ['id' => $data->id]);
     }
 
