@@ -16,11 +16,33 @@ class Leader implements \JsonSerializable
         $this->surname = $surname;
     }
 
+    /**
+     * @return string
+     */
     public function getFullName(): string
     {
         return $this->name . ' ' . $this->surname;
     }
 
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSurname(): string
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @return \stdClass
+     */
     public function jsonSerialize(): \stdClass
     {
         $data = new \stdClass();
