@@ -35,4 +35,23 @@ class LeaderMapper
         $leader->persists($id);
         return $leader;
     }
+
+    /**
+     * @param Leader $leader
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function update(Leader $leader)
+    {
+        $data = getDataObject($leader);
+        $this->connection->update('leader', ['name' => $data->name, 'surname' => $data->surname], ['id' => $data->id]);
+    }
+
+    /**
+     * @param int $id
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function delete(int $id)
+    {
+        $this->connection->delete('leader', ['id' => (string) $id]);
+    }
 }

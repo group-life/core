@@ -40,7 +40,7 @@ class LeaderMapperTest extends TestCaseWithDb
     }
 
     /**
-     * @param $leader
+     * @throws \Doctrine\DBAL\Exception
      */
     public function testUpdate()
     {
@@ -59,13 +59,17 @@ class LeaderMapperTest extends TestCaseWithDb
         );
     }
 
+    /**
+     * @throws \Doctrine\DBAL\Exception
+     */
     public function testDelete()
     {
         $mapper = new LeaderMapper(self::$db);
-        $newLeader = $mapper->delete(1);
+        $mapper->delete(1);
         self::assertEquals(
-            [],
+            null,
             self::$db->fetchAssociative('SELECT * FROM `leader` WHERE id = 1')
         );
+        self::$db->insert('leader', ['id' => 1, 'name' => 'Petr', 'surname' => 'Petrov']);
     }
 }
