@@ -42,13 +42,10 @@ class LeaderMapper
      * @throws \Doctrine\DBAL\Exception
      * @throws SavingToDbIsForbidden
      */
-    public function update(Leader $leader)
+    public function update(Leader $leader, int $id)
     {
         $data = getDataObject($leader);
-        if (empty($data->id)) {
-            throw new SavingToDbIsForbidden();
-        }
-        $this->connection->update('leader', ['name' => $data->name, 'surname' => $data->surname], ['id' => $data->id]);
+        $this->connection->update('leader', ['name' => $data->name, 'surname' => $data->surname], ['id' => $id]);
     }
 
     /**

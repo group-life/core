@@ -25,22 +25,6 @@ class Leader implements \JsonSerializable
     }
 
     /**
-     * @param string $name
-     */
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * @param string $surname
-     */
-    public function setSurname(string $surname): void
-    {
-        $this->surname = $surname;
-    }
-
-    /**
      * @return \stdClass
      */
     public function jsonSerialize(): \stdClass

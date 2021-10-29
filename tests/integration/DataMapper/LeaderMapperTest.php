@@ -45,10 +45,8 @@ class LeaderMapperTest extends TestCaseWithDb
     public function testUpdate()
     {
         $mapper = new LeaderMapper(self::$db);
-        $newLeader = $mapper->find(1);
-        $newLeader->setName('Vasiliy');
-        $newLeader->setSurname('Chapaev');
-        $mapper->update($newLeader);
+        $newLeader = new Leader('Vasiliy', 'Chapaev');
+        $mapper->update($newLeader, 1);
         self::assertEquals(
             [
                 'id' => '1',
